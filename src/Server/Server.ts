@@ -1,6 +1,5 @@
 import { FastifyInstance, FastifyPluginOptions, RouteOptions } from "fastify";
 import { IncomingMessage, Server as httpServer, ServerResponse } from "http";
-import generalHook from "./utils/generalHook";
 import { plugin, pluginSet, router, routerSet } from "./serverTypes";
 
 export class Server {
@@ -34,7 +33,6 @@ export class Server {
   private registerRouters() {
     this.setOfRouters.forEach((router: router) => {
       let { routes, opts } = router;
-      routes = generalHook.applyGeneralHook1(routes);
       const plugin = (
         server: FastifyInstance,
         opts: FastifyPluginOptions,

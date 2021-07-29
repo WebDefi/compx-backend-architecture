@@ -2,13 +2,18 @@ import { RouteOptions, RegisterOptions, RouteHandlerMethod } from "fastify";
 import * as controller from "./controller";
 
 export const opts: RegisterOptions = {
-  prefix: "",
+  prefix: "/gigabyte/api/v1/",
 };
 
 export const routes: RouteOptions[] = [
   {
     method: "GET",
-    url: "/:aloha",
-    handler: <RouteHandlerMethod>controller.helloWorld,
+    url: "/categories",
+    handler: <RouteHandlerMethod>controller.getCategories,
+  },
+  {
+    method: "GET",
+    url: "/items/:categoryId",
+    handler: <RouteHandlerMethod>controller.getItemsByCategory,
   },
 ];

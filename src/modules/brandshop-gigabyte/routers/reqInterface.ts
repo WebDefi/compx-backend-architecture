@@ -8,13 +8,16 @@ import { ReplyGenericInterface } from "fastify/types/reply";
 
 interface RequestGenericInterface {
   Body?: RequestBodyDefault;
-  Querystring?: RequestQuerystringDefault;
+  Querystring?: {
+    start: number;
+    end?: number;
+  };
   Params: {
-    aloha: string;
+    categoryId: number;
   };
   Headers?: RequestHeadersDefault;
 }
 
-export interface RouteGenericInterfaceHelloWorld
+export interface RouteGenericInterfaceItemsByCategory
   extends RequestGenericInterface,
     ReplyGenericInterface {}

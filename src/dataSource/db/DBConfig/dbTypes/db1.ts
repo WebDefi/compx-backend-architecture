@@ -1,4 +1,4 @@
-export type db1 = {
+export type compxDb = {
   id: number;
   user: string;
   host: string;
