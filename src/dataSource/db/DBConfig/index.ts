@@ -5,11 +5,11 @@ import { DBDrivers } from "./dbTypes/drivers";
 
 export const compxDB: compxDb = {
   id: 1,
-  user: "User1",
-  host: "localhost",
+  user: "postgres",
+  host: "gigabyte.cdx0k9wdxtet.eu-west-1.rds.amazonaws.com",
   port: 5432,
-  pass: null,
-  name: "db1Example",
+  pass: "K:%YDhUYe`?5_D`J",
+  name: "compx_brandshop",
   driver: DBDrivers.pg,
   userAccessible: true,
 };

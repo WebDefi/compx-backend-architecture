@@ -12,13 +12,19 @@ class Brandshop {
         vendor?: boolean;
         name?: boolean;
         description?: boolean;
+        detailedDescriptionRU?: boolean;
+        detailedDescriptionUA?: boolean;
         url?: boolean;
-        image?: boolean;
+        images?: boolean;
         priceRUAH?: boolean;
         stock?: boolean;
         stockByCity?: boolean;
         guarantee?: boolean;
         condition?: boolean;
+        characteristics?: boolean;
+        delivery?: boolean;
+        payment?: boolean;
+        refund?: boolean;
       };
     }
   ) {

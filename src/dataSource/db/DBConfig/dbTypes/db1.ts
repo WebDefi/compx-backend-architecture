@@ -5,6 +5,6 @@ export type compxDb = {
   name: string;
   port: number;
   driver: string;
-  pass: string | null;
+  pass: string;
   userAccessible: boolean;
 };
