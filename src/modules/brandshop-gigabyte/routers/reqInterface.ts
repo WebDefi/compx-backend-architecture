@@ -13,7 +13,7 @@ interface RequestGenericInterface {
     end?: number;
   };
   Params: {
-    categoryId: number;
+    groupId: number;
   };
   Headers?: RequestHeadersDefault;
 }

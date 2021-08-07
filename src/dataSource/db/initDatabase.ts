@@ -3,10 +3,16 @@ import { compxDB } from "./DBConfig";
 
 export const initRemoteDatabase = async () => {
   const initRemoteDBQuery = `
+        CREATE TABLE IF NOT EXISTS groups (
+          id serial unique,
+          title varchar(256),
+          image_url text
+        );
         CREATE TABLE IF NOT EXISTS categories (
             id serial,
             given_id integer UNIQUE,
-            name varchar(50)
+            name varchar(50),
+            group_id int references groups(id)
         );
         CREATE TABLE IF NOT EXISTS items (
             id serial,
@@ -14,11 +20,31 @@ export const initRemoteDatabase = async () => {
             name varchar(50),
             description text,
             url text,
-            image text,
+            images text[],
             price decimal,
             detailedDescRU text,
             detailedDescUA text
-        )
+        );
+        CREATE TABLE IF NOT EXISTS gallery (
+          id serial unique,
+          images text[]
+        );
+        CREATE TABLE IF NOT EXISTS news (
+          id serial unique,
+          image text,
+          url text,
+          title varchar(265)
+        );
+        CREATE TABLE IF NOT EXISTS slider (
+          id serial unique,
+          image text,
+          title_high varchar(50),
+          title_low text,
+          button_text varchar(50),
+          active boolean,
+          active_button boolean,
+          active_title boolean
+        );
     `;
   const createTablesResponse = await db.executeQueryForGivenDB(
     initRemoteDBQuery,

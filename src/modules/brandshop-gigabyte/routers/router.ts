@@ -8,12 +8,27 @@ export const opts: RegisterOptions = {
 export const routes: RouteOptions[] = [
   {
     method: "GET",
-    url: "/categories",
-    handler: <RouteHandlerMethod>controller.getCategories,
+    url: "/groups",
+    handler: <RouteHandlerMethod>controller.getGroups,
   },
   {
     method: "GET",
-    url: "/items/:categoryId",
-    handler: <RouteHandlerMethod>controller.getItemsByCategory,
+    url: "/items/:groupId",
+    handler: <RouteHandlerMethod>controller.getItemsByGroup,
+  },
+  {
+    method: "GET",
+    url: "/gallery",
+    handler: <RouteHandlerMethod>controller.getGalleryItems,
+  },
+  {
+    method: "GET",
+    url: "/news",
+    handler: <RouteHandlerMethod>controller.getNews,
+  },
+  {
+    method: "GET",
+    url: "/slider",
+    handler: <RouteHandlerMethod>controller.getSlider,
   },
 ];

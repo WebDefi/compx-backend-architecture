@@ -2,24 +2,24 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import gigabyteService from "../utils/gigabyteService";
 import { RouteGenericInterfaceItemsByCategory } from "./reqInterface";
 
-export const getCategories = async (req: FastifyRequest, rep: FastifyReply) => {
-  const categories = await gigabyteService.getAllCategories();
-  if (categories.error) {
-    return rep.status(400).send(categories);
+export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
+  const groups = await gigabyteService.getAllGroups();
+  if (groups.error) {
+    return rep.status(400).send(groups);
   }
-  return rep.status(200).send({ categories: categories.rows });
+  return rep.status(200).send({ groups: groups.rows });
 };
 
-export const getItemsByCategory = async (
+export const getItemsByGroup = async (
   req: FastifyRequest<RouteGenericInterfaceItemsByCategory>,
   rep: FastifyReply
 ) => {
   const queryString = req.query;
-  const categoryId = req.params.categoryId;
-  if (!categoryId)
-    return rep.status(400).send({ error: "Category id wasn't presented" });
-  const itemsResponse = await gigabyteService.getAllItemsByCategoryId(
-    categoryId,
+  const groupId = req.params.groupId;
+  if (!groupId)
+    return rep.status(400).send({ error: "Group id wasn't presented" });
+  const itemsResponse = await gigabyteService.getAllItemsGroupId(
+    groupId,
     queryString?.start,
     queryString?.end
   );
@@ -27,4 +27,31 @@ export const getItemsByCategory = async (
     return rep.status(400).send(itemsResponse);
   }
   return rep.status(200).send(itemsResponse.rows);
+};
+
+export const getGalleryItems = async (
+  req: FastifyRequest,
+  rep: FastifyReply
+) => {
+  const galleryItems: any = await gigabyteService.getAllActiveGalleryItems();
+  if (galleryItems.error) {
+    return rep.status(400).send(galleryItems);
+  }
+  return rep.status(200).send({ gallery: galleryItems.rows });
+};
+
+export const getNews = async (req: FastifyRequest, rep: FastifyReply) => {
+  const newsItems: any = await gigabyteService.getAllActiveNews();
+  if (newsItems.error) {
+    return rep.status(400).send(newsItems);
+  }
+  return rep.status(200).send({ news: newsItems.rows });
+};
+
+export const getSlider = async (req: FastifyRequest, rep: FastifyReply) => {
+  const sliderItems: any = await gigabyteService.getAllActiveSliderItems();
+  if (sliderItems.error) {
+    return rep.status(400).send(sliderItems);
+  }
+  return rep.status(200).send({ slider: sliderItems.rows });
 };
