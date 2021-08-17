@@ -37,7 +37,12 @@ class gigabyteService {
     }
     // console.log(getAllItemsByGroupId(groupId, start, end, charValuesString))
     return await db.executeQueryForGivenDB(
-      getAllItemsByGroupId(groupId, start, end, charValuesString),
+      getAllItemsByGroupId(
+        groupId,
+        start,
+        end,
+        charValues != undefined ? charValuesString : undefined
+      ),
       compxDB.id
     );
   }

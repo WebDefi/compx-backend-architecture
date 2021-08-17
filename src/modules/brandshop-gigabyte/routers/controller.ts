@@ -15,7 +15,7 @@ export const getItemsByGroup = async (
   rep: FastifyReply
 ) => {
   const queryString = req.query;
-  const charValues: any = <Array<string>>queryString?.charValues;
+  const charValues: any = queryString?.charValues;
   const groupId = req.params.groupId;
   if (!groupId)
     return rep.status(400).send({ error: "Group id wasn't presented" });
@@ -23,7 +23,7 @@ export const getItemsByGroup = async (
     groupId,
     queryString?.start,
     queryString?.end,
-    JSON.parse(charValues)
+    charValues != undefined ? JSON.parse(charValues) : undefined
   );
   if (itemsResponse.error) {
     return rep.status(400).send(itemsResponse);
