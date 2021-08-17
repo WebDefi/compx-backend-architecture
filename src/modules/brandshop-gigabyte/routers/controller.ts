@@ -23,7 +23,7 @@ export const getItemsByGroup = async (
     groupId,
     queryString?.start,
     queryString?.end,
-    charValues != undefined ? JSON.parse(charValues) : undefined
+    charValues != undefined ? JSON.parse(decodeURI(charValues)) : undefined
   );
   if (itemsResponse.error) {
     return rep.status(400).send(itemsResponse);
