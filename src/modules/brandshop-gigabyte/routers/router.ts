@@ -28,6 +28,11 @@ export const routes: RouteOptions[] = [
   },
   {
     method: "GET",
+    url: "/sales",
+    handler: <RouteHandlerMethod>controller.getSales,
+  },
+  {
+    method: "GET",
     url: "/slider",
     handler: <RouteHandlerMethod>controller.getSlider,
   },

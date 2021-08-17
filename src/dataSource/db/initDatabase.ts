@@ -35,6 +35,12 @@ export const initRemoteDatabase = async () => {
           url text,
           title varchar(265)
         );
+        CREATE TABLE IF NOT EXISTS sale_promotion (
+          id serial unique,
+          image text,
+          url text,
+          title varchar(265)
+        );
         CREATE TABLE IF NOT EXISTS slider (
           id serial unique,
           image text,

@@ -17,25 +17,50 @@ class adminService implements IServiceInterface {
     );
     // console.log("Query to insert  categoriews")
     // console.log(queryToInsertCategories);
-    const insetrCategoriesResult = await db.executeQueryForGivenDB(
-      queryToInsertCategories,
-      compxDB.id
-    );
-    if (insetrCategoriesResult.error) {
-      return insetrCategoriesResult;
-    }
+    // const insetrCategoriesResult = await db.executeQueryForGivenDB(
+    //   queryToInsertCategories,
+    //   compxDB.id
+    // );
+    // if (insetrCategoriesResult.error) {
+    //   return insetrCategoriesResult;
+    // }
     let queryInsertItems = "";
     let values: Array<any> = [];
-    const items = brandShopData.items;
-    let counter = 0;
-    // console.log(items[0])
-    items.forEach((item: any) => {
+    const items = brandShopData.items.map((item: any) => {
       // console.log(item);
+      if (typeof item.images.image == "string") {
+        item.images.image = [item.images.image];
+      }
+      item.characteristics = item.characteristics.charItem
+        ? item.characteristics.charItem.length
+          ? item.characteristics.charItem.map((char: any) => {
+              delete char["$"]["type"];
+              return char["$"];
+            })
+          : [item.characteristics.charItem["$"]]
+        : [];
+      item.characteristics = [
+        ...new Set(item.characteristics.map((char: any) => char.name)),
+      ].map((name: any) => {
+        let tempValues = item.characteristics.find(
+          (char: any) => char.name == name
+        );
+        return {
+          name: name,
+          alias: tempValues.alias,
+          value: tempValues.value,
+        };
+      });
+      return item;
+    });
+    // console.log(items.length)
+    let counter = 0;
+    items.forEach((item: any) => {
       queryInsertItems += `($${counter + 1}, $${counter + 2}, $${
         counter + 3
       }, $${counter + 4}, $${counter + 5}, $${counter + 6}, $${counter + 7}, $${
         counter + 8
-      }), `;
+      }, $${counter + 9}), `;
       values.push(
         ...[
           item.categoryId,
@@ -46,9 +71,10 @@ class adminService implements IServiceInterface {
           item.priceRUAH,
           item.detailedDescriptionUA,
           item.detailedDescriptionRU,
+          item.characteristics,
         ]
       );
-      counter += 8;
+      counter += 9;
     });
     const queryToInsertItems = insertIntoItems(
       queryInsertItems.substring(0, queryInsertItems.length - 2)

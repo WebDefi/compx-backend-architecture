@@ -8,6 +8,8 @@ import {
   getAllActiveGalleryItems,
   getAllActiveNews,
   getAllActiveSliderItems,
+  getAllActiveSales,
+  getDistinctCharacteristicsForGivenGroupId,
 } from "./dbQueries";
 
 class gigabyteService {
@@ -20,10 +22,28 @@ class gigabyteService {
   public async getAllItemsGroupId(
     groupId: number,
     start?: number,
-    end?: number
+    end?: number,
+    charValues?: Array<string>
   ) {
+    let charValuesString = "";
+    if (charValues) {
+      charValues.forEach((value: string) => {
+        charValuesString += `'${value}', `;
+      });
+      charValuesString = charValuesString.substring(
+        0,
+        charValuesString.length - 2
+      );
+    }
+    // console.log(getAllItemsByGroupId(groupId, start, end, charValuesString))
     return await db.executeQueryForGivenDB(
-      getAllItemsByGroupId(groupId, start, end),
+      getAllItemsByGroupId(groupId, start, end, charValuesString),
+      compxDB.id
+    );
+  }
+  public async getDistinctCharacteristicsForGivenGroupId(groupId: number) {
+    return await db.executeQueryForGivenDB(
+      getDistinctCharacteristicsForGivenGroupId(groupId),
       compxDB.id
     );
   }
@@ -35,6 +55,9 @@ class gigabyteService {
   }
   public async getAllActiveNews() {
     return await db.executeQueryForGivenDB(getAllActiveNews, compxDB.id);
+  }
+  public async getAllActiveSales() {
+    return await db.executeQueryForGivenDB(getAllActiveSales, compxDB.id);
   }
   public async getAllActiveSliderItems() {
     return await db.executeQueryForGivenDB(getAllActiveSliderItems, compxDB.id);

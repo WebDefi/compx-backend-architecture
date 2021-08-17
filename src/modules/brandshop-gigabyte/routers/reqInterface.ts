@@ -11,6 +11,7 @@ interface RequestGenericInterface {
   Querystring?: {
     start: number;
     end?: number;
+    charValues?: Array<string>;
   };
   Params: {
     groupId: number;

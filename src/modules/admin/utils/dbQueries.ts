@@ -3,5 +3,5 @@ export const insertIntoCategories = (values: string) => {
 };
 
 export const insertIntoItems = (values: string) => {
-  return `insert into items (category_id, name, description, url, image, price, detailedDescRU, detailedDescUA) VALUES ${values}`;
+  return `insert into items (category_id, name, description, url, images, price, detailedDescRU, detailedDescUA, characteristics) VALUES ${values}`;
 };

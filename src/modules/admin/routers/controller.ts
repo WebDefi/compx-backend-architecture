@@ -20,9 +20,10 @@ export const uploadXmlData = async (
       detailedDescriptionRU: true,
       detailedDescriptionUA: true,
       stock: true,
+      characteristics: true,
     },
   });
-  // console.log(xmlData);
+  // xmlData.items.forEach((item: any) => console.log(item.characteristics.charItem));
   const insertData = await adminService.createRecord(xmlData);
   if (insertData.error) {
     return rep.status(400).send(insertData);
