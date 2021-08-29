@@ -7,7 +7,15 @@ export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
   if (groups.error) {
     return rep.status(400).send(groups);
   }
-  return rep.status(200).send({ groups: groups.rows });
+  const resultGroups = groups.rows.map((group: any) => {
+    let tempImage = group.image_url;
+    delete group["image_url"];
+    group["imageUrl"] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
+      tempImage ?? ""
+    }`;
+    return group;
+  });
+  return rep.status(200).send({ groups: resultGroups });
 };
 
 export const getItemsByGroup = async (
@@ -80,11 +88,11 @@ export const getNews = async (req: FastifyRequest, rep: FastifyReply) => {
 };
 
 export const getSales = async (req: FastifyRequest, rep: FastifyReply) => {
-  const salesItems: any = await gigabyteService.getAllActiveNews();
+  const salesItems: any = await gigabyteService.getAllActiveSales();
   if (salesItems.error) {
     return rep.status(400).send(salesItems);
   }
-  return rep.status(200).send({ news: salesItems.rows });
+  return rep.status(200).send({ sales: salesItems.rows });
 };
 
 export const getSlider = async (req: FastifyRequest, rep: FastifyReply) => {
