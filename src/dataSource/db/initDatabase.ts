@@ -6,7 +6,8 @@ export const initRemoteDatabase = async () => {
         CREATE TABLE IF NOT EXISTS groups (
           id serial unique,
           title varchar(256),
-          image_url text
+          image_url text,
+          banner_image_url text
         );
         CREATE TABLE IF NOT EXISTS categories (
             id serial,

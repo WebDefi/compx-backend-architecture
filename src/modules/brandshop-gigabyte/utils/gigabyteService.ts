@@ -10,6 +10,8 @@ import {
   getAllActiveSliderItems,
   getAllActiveSales,
   getDistinctCharacteristicsForGivenGroupId,
+  getBannerImageUrlByGroup,
+  getCountOfItemsByGroupAndChars,
 } from "./dbQueries";
 
 class gigabyteService {
@@ -18,6 +20,12 @@ class gigabyteService {
   }
   public async getAllGroups() {
     return await db.executeQueryForGivenDB(getAllGroupsQuery, compxDB.id);
+  }
+  public async getBannerImageUrlByGroup(groupId: number) {
+    return await db.executeQueryForGivenDB(
+      getBannerImageUrlByGroup(groupId),
+      compxDB.id
+    );
   }
   public async getAllItemsGroupId(
     groupId: number,
@@ -35,12 +43,33 @@ class gigabyteService {
         charValuesString.length - 2
       );
     }
-    // console.log(getAllItemsByGroupId(groupId, start, end, charValuesString))
     return await db.executeQueryForGivenDB(
       getAllItemsByGroupId(
         groupId,
         start,
         end,
+        charValues != undefined ? charValuesString : undefined
+      ),
+      compxDB.id
+    );
+  }
+  public async getNumberOfItemsByGroup(
+    groupId: number,
+    charValues?: Array<string>
+  ) {
+    let charValuesString = "";
+    if (charValues) {
+      charValues.forEach((value: string) => {
+        charValuesString += `'${value}', `;
+      });
+      charValuesString = charValuesString.substring(
+        0,
+        charValuesString.length - 2
+      );
+    }
+    return await db.executeQueryForGivenDB(
+      getCountOfItemsByGroupAndChars(
+        groupId,
         charValues != undefined ? charValuesString : undefined
       ),
       compxDB.id

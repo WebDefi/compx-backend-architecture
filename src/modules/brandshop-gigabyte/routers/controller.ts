@@ -10,6 +10,7 @@ export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
   const resultGroups = groups.rows.map((group: any) => {
     let tempImage = group.image_url;
     delete group["image_url"];
+    delete group["banner_image_url"];
     group["imageUrl"] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
       tempImage ?? ""
     }`;
@@ -41,6 +42,17 @@ export const getItemsByGroup = async (
   if (itemCharacteristics.error) {
     return rep.status(400).send(itemCharacteristics);
   }
+  const groupBanner = await gigabyteService.getBannerImageUrlByGroup(groupId);
+  if (groupBanner.error) {
+    return rep.status(400).send(groupBanner);
+  }
+  const numberOfItems = await gigabyteService.getNumberOfItemsByGroup(
+    groupId,
+    charValues != undefined ? JSON.parse(decodeURI(charValues)) : undefined
+  );
+  if (numberOfItems.error) {
+    return rep.status(400).send(numberOfItems);
+  }
   let itemCharacteristicsObject: any = {};
   itemCharacteristics.rows.forEach((char: any) => {
     if (itemCharacteristicsObject[char["name"]]) {
@@ -64,6 +76,10 @@ export const getItemsByGroup = async (
         };
       }),
     ],
+    bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
+      groupBanner.rows[0].banner_image_url ?? ""
+    }`,
+    numberOfItems: numberOfItems.rows[0].number_of_items,
   };
   return rep.status(200).send(itemsResult);
 };
@@ -76,7 +92,14 @@ export const getGalleryItems = async (
   if (galleryItems.error) {
     return rep.status(400).send(galleryItems);
   }
-  return rep.status(200).send({ gallery: galleryItems.rows });
+  const resultGallery = galleryItems.rows.map((item: any) => {
+    item.images = item.images.map(
+      (imageUrl: string) =>
+        `https://compx-filestore.s3.eu-west-1.amazonaws.com/${imageUrl}`
+    );
+    return item;
+  });
+  return rep.status(200).send({ gallery: resultGallery });
 };
 
 export const getNews = async (req: FastifyRequest, rep: FastifyReply) => {
