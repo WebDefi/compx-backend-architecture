@@ -9,6 +9,11 @@ export const initRemoteDatabase = async () => {
           image_url text,
           banner_image_url text
         );
+        CREATE TABLE IF NOT EXISTS char_group (
+          id serial unique,
+          groupId int references groups(id),
+          characteristics json[]
+      );
         CREATE TABLE IF NOT EXISTS categories (
             id serial,
             given_id integer UNIQUE,

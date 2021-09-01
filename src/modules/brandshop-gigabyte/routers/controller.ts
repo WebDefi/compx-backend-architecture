@@ -66,16 +66,7 @@ export const getItemsByGroup = async (
   });
   const itemsResult = {
     items: itemsResponse.rows,
-    characteristics: [
-      ...Object.keys(itemCharacteristicsObject).map((name: string) => {
-        let tempObj = itemCharacteristicsObject[name];
-        return {
-          name: name,
-          alias: tempObj.alias,
-          values: tempObj.values,
-        };
-      }),
-    ],
+    characteristics: itemCharacteristics.rows[0].characteristics,
     bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
       groupBanner.rows[0].banner_image_url ?? ""
     }`,

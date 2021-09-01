@@ -27,8 +27,7 @@ export const getAllItemsByGroupId = (
     }`;
 };
 export const getDistinctCharacteristicsForGivenGroupId = (groupId: number) => {
-  return `with item as (SELECT unnest(characteristics) chars FROM items where category_id in (SELECT given_id from categories where group_id = ${groupId}))
-  select distinct item.chars ->> 'name' as name,  item.chars ->> 'alias' as alias, item.chars ->> 'value' as value from item;`;
+  return `select characteristics from char_group where groupid = ${groupId}`;
 };
 export const getBannerImageUrlByGroup = (groupId: number) => {
   return `select banner_image_url from groups where id = ${groupId}`;
