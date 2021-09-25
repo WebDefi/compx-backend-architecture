@@ -116,3 +116,14 @@ export const getSlider = async (req: FastifyRequest, rep: FastifyReply) => {
   }
   return rep.status(200).send({ slider: sliderItems.rows });
 };
+
+export const getFpsGamesChars = async (
+  req: FastifyRequest,
+  rep: FastifyReply
+) => {
+  const fpsItems: any = await gigabyteService.getFpsItems();
+  if (fpsItems.error) {
+    return rep.status(400).send(fpsItems);
+  }
+  return rep.status(200).send({ games: fpsItems.rows });
+};

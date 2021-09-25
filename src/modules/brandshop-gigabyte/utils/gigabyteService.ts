@@ -12,6 +12,7 @@ import {
   getDistinctCharacteristicsForGivenGroupId,
   getBannerImageUrlByGroup,
   getCountOfItemsByGroupAndChars,
+  getFpsItems,
 } from "./dbQueries";
 
 class gigabyteService {
@@ -95,6 +96,9 @@ class gigabyteService {
   }
   public async getAllActiveSliderItems() {
     return await db.executeQueryForGivenDB(getAllActiveSliderItems, compxDB.id);
+  }
+  public async getFpsItems() {
+    return await db.executeQueryForGivenDB(getFpsItems, compxDB.id);
   }
 }
 

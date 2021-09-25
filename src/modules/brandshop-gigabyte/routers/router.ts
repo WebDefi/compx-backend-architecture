@@ -36,4 +36,9 @@ export const routes: RouteOptions[] = [
     url: "/slider",
     handler: <RouteHandlerMethod>controller.getSlider,
   },
+  {
+    method: "GET",
+    url: "/games",
+    handler: controller.getFpsGamesChars,
+  },
 ];
