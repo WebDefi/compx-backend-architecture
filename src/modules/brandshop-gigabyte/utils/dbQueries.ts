@@ -40,7 +40,7 @@ export const getCountOfItemsByGroupAndChars = (
   charValues?: string
 ) => {
   return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (SELECT given_id from categories where group_id = ${groupId}))
-  select count(*) number_of_items FROM items, item
+  select count(distinct items.id) number_of_items FROM items, item
   where item.id = items.id
   ${
     charValues != undefined

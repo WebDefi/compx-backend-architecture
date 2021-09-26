@@ -21,6 +21,7 @@ export const uploadXmlData = async (
       detailedDescriptionUA: true,
       stock: true,
       characteristics: true,
+      condition: true
     },
   });
   // xmlData.items.forEach((item: any) => console.log(item.characteristics.charItem));

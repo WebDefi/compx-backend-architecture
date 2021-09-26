@@ -66,11 +66,11 @@ export const getItemsByGroup = async (
   });
   const itemsResult = {
     items: itemsResponse.rows,
-    characteristics: itemCharacteristics.rows[0].characteristics,
+    characteristics: itemCharacteristics.rows[0]?.characteristics,
     bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
       groupBanner.rows[0].banner_image_url ?? ""
     }`,
-    numberOfItems: numberOfItems.rows[0].number_of_items,
+    numberOfPages: Math.round(numberOfItems.rows[0].number_of_items / 20),
   };
   return rep.status(200).send(itemsResult);
 };
