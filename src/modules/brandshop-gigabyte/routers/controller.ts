@@ -64,13 +64,14 @@ export const getItemsByGroup = async (
       };
     }
   });
+  const numberOfPages = Math.round(numberOfItems.rows[0].number_of_items / 20);
   const itemsResult = {
     items: itemsResponse.rows,
     characteristics: itemCharacteristics.rows[0]?.characteristics,
     bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
       groupBanner.rows[0].banner_image_url ?? ""
     }`,
-    numberOfPages: Math.round(numberOfItems.rows[0].number_of_items / 20),
+    numberOfPages: numberOfPages == 0 ? 1 : numberOfPages,
   };
   return rep.status(200).send(itemsResult);
 };
