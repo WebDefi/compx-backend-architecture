@@ -565,6 +565,492 @@ export const getFpsGamesChars = async (
           ],
         },
       },
+      {
+        videoGameName: "COD COLD WAR",
+        videoGameImgUrl:
+          "https://www.aorus.com/assets/img/COD_CLOD_WAR.52436a2d.jpg",
+        relatedItems: {
+          "1080": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 192,
+                "ray tracing": 109,
+                "ray tracing+DLSS quality": 117,
+                "ray tracing+DLSS balance": 119,
+                "ray tracing+DLSS performance": 123,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3080 MASTER 10G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/942bdd75757e716e80d788136b7a1897/Product/25953/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 175,
+                "ray tracing": 100,
+                "ray tracing+DLSS quality": 113,
+                "ray tracing+DLSS balance": 115,
+                "ray tracing+DLSS performance": 119,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3070 MASTER 8G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/da64643ca9af2f1b8ded8e595448ffed/Product/26737/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 145,
+                "ray tracing": 85,
+                "ray tracing+DLSS quality": 100,
+                "ray tracing+DLSS balance": 103,
+                "ray tracing+DLSS performance": 105,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3060 ELITE 12G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/28094/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 124,
+                "ray tracing+DLSS balance": 91,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 XT MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26818/webp/400",
+              fpsAttrs: {
+                DX: 175,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26804/webp/400",
+              fpsAttrs: {
+                DX: 60,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 5700 XT 8G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/25704/webp/400",
+              fpsAttrs: {
+                DX: 111,
+              },
+            },
+            {
+              videoCardName: "Radeon™ RX 5700 GAMING OC 8G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/23248/webp/400",
+              fpsAttrs: {
+                DX: 83,
+              },
+            },
+            {
+              videoCardName: "Radeon™ RX 5600 XT GAMING OC 6G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/25013/webp/400",
+              fpsAttrs: {
+                DX: 74,
+              },
+            },
+          ],
+          "2k": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 145,
+                "ray tracing": 90,
+                "ray tracing+DLSS quality": 107,
+                "ray tracing+DLSS balance": 109,
+                "ray tracing+DLSS performance": 113,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3080 MASTER 10G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/942bdd75757e716e80d788136b7a1897/Product/25953/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 129,
+                "ray tracing": 78,
+                "ray tracing+DLSS quality": 96,
+                "ray tracing+DLSS balance": 101,
+                "ray tracing+DLSS performance": 106,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3070 MASTER 8G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/da64643ca9af2f1b8ded8e595448ffed/Product/26737/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 105,
+                "ray tracing": 64,
+                "ray tracing+DLSS quality": 82,
+                "ray tracing+DLSS balance": 87,
+                "ray tracing+DLSS performance": 93,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3060 ELITE 12G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/28094/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 86,
+                "ray tracing+DLSS balance": 76,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 XT MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26818/webp/400",
+              fpsAttrs: {
+                DX: 127,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26804/webp/400",
+              fpsAttrs: {
+                DX: 44,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 5700 XT 8G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/25704/webp/400",
+              fpsAttrs: {
+                DX: 75,
+              },
+            },
+            {
+              videoCardName: "Radeon™ RX 5700 GAMING OC 8G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/23248/webp/400",
+              fpsAttrs: {
+                DX: 60,
+              },
+            },
+            {
+              videoCardName: "Radeon™ RX 5600 XT GAMING OC 6G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/25013/webp/400",
+              fpsAttrs: {
+                DX: 56,
+              },
+            },
+          ],
+          "4k": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 85,
+                "ray tracing": 55,
+                "ray tracing+DLSS quality": 79,
+                "ray tracing+DLSS balance": 87,
+                "ray tracing+DLSS performance": 95,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3080 MASTER 10G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/942bdd75757e716e80d788136b7a1897/Product/25953/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 75,
+                "ray tracing": 47,
+                "ray tracing+DLSS quality": 70,
+                "ray tracing+DLSS balance": 77,
+                "ray tracing+DLSS performance": 84,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3070 MASTER 8G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/da64643ca9af2f1b8ded8e595448ffed/Product/26737/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 55,
+                "ray tracing": 30,
+                "ray tracing+DLSS quality": 49,
+                "ray tracing+DLSS balance": 60,
+                "ray tracing+DLSS performance": 65,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3060 ELITE 12G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/28094/webp/400",
+              fpsAttrs: {
+                "No ray tracing": 47,
+                "ray tracing+DLSS balance": 46,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 XT MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26818/webp/400",
+              fpsAttrs: {
+                DX: 74,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26804/webp/400",
+              fpsAttrs: {
+                DX: 28,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 5700 XT 8G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/25704/webp/400",
+              fpsAttrs: {
+                DX: 38,
+              },
+            },
+            {
+              videoCardName: "Radeon™ RX 5700 GAMING OC 8G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/23248/webp/400",
+              fpsAttrs: {
+                DX: 33,
+              },
+            },
+            {
+              videoCardName: "Radeon™ RX 5600 XT GAMING OC 6G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/25013/webp/400",
+              fpsAttrs: {
+                DX: 27,
+              },
+            },
+          ],
+        },
+      },
+      {
+        videoGameName: "Assassin's Creed Valhalla",
+        videoGameImgUrl:
+          "https://www.aorus.com/assets/img/assassin's_creed_valhalla.f5537afd.jpg",
+        relatedItems: {
+          "1080": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                DX: 97,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3080 MASTER 10G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/942bdd75757e716e80d788136b7a1897/Product/25953/webp/400",
+              fpsAttrs: {
+                DX: 92,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3070 MASTER 8G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/da64643ca9af2f1b8ded8e595448ffed/Product/26737/webp/400",
+              fpsAttrs: {
+                DX: 82,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3060 ELITE 12G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/28094/webp/400",
+              fpsAttrs: {
+                DX: 81,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 2080 Ti 11G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/05799d4b567c7205309f64ae2bb143a5/Product/23135/webp/400",
+              fpsAttrs: {
+                DX: 82,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 XT MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26818/webp/400",
+              fpsAttrs: {
+                DX: 77,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26804/webp/400",
+              fpsAttrs: {
+                DX: 55,
+              },
+            },
+          ],
+          "2k": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                DX: 83,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3080 MASTER 10G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/942bdd75757e716e80d788136b7a1897/Product/25953/webp/400",
+              fpsAttrs: {
+                DX: 78,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3070 MASTER 8G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/da64643ca9af2f1b8ded8e595448ffed/Product/26737/webp/400",
+              fpsAttrs: {
+                DX: 69,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3060 ELITE 12G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/28094/webp/400",
+              fpsAttrs: {
+                DX: 64,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 2080 Ti 11G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/05799d4b567c7205309f64ae2bb143a5/Product/23135/webp/400",
+              fpsAttrs: {
+                DX: 67,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 XT MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26818/webp/400",
+              fpsAttrs: {
+                DX: 58,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26804/webp/400",
+              fpsAttrs: {
+                DX: 43,
+              },
+            },
+          ],
+          "4k": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                DX: 58,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3080 MASTER 10G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/942bdd75757e716e80d788136b7a1897/Product/25953/webp/400",
+              fpsAttrs: {
+                DX: 54,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3070 MASTER 8G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/da64643ca9af2f1b8ded8e595448ffed/Product/26737/webp/400",
+              fpsAttrs: {
+                DX: 47,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 3060 ELITE 12G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/28094/webp/400",
+              fpsAttrs: {
+                DX: 41,
+              },
+            },
+            {
+              videoCardName: "AORUS GeForce RTX™ 2080 Ti 11G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/05799d4b567c7205309f64ae2bb143a5/Product/23135/webp/400",
+              fpsAttrs: {
+                DX: 44,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 XT MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26818/webp/400",
+              fpsAttrs: {
+                DX: 35,
+              },
+            },
+            {
+              videoCardName: "AORUS Radeon™ RX 6800 MASTER 16G",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26804/webp/400",
+              fpsAttrs: {
+                DX: 21,
+              },
+            },
+          ],
+        },
+      },
+      {
+        videoGameName: "HITMAN 3",
+        videoGameImgUrl:
+          "https://www.aorus.com/assets/img/hitman3.b24f5e8e.jpg",
+        relatedItems: {
+          "1080": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                DX: 222,
+              },
+            },
+          ],
+          "2k": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                DX: 203,
+              },
+            },
+          ],
+          "4k": [
+            {
+              videoCardName: "AORUS GeForce RTX™ 3090 XTREME 24G ",
+              videoCardPictureUrl:
+                "https://static.gigabyte.com/StaticFile/Image/Global/bca9c8f7bd6517cefc26df54eb3ba2dc/Product/26279/webp/400",
+              fpsAttrs: {
+                DX: 123,
+              },
+            },
+          ],
+        },
+      },
     ],
   });
 };
