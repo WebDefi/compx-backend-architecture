@@ -37,28 +37,32 @@ export const getItemsByGroup = async (
   if (itemsResponse.error) {
     return rep.status(400).send(itemsResponse);
   }
-  let filteredItems = itemsResponse.rows.map((item: any) => {
-    if (charValues != undefined) {
-      let tempChars = item.characteristics;
-      delete item["characteristics"];
-      let tempCharValues = tempChars.map((char: any) => char.value);
-      if (
-        JSON.parse(decodeURI(charValues)).some((value: string) =>
-          tempCharValues.includes(value)
-        )
-      ) {
+  let filteredItems = itemsResponse.rows
+    .map((item: any) => {
+      if (charValues != undefined) {
+        let tempChars = item.characteristics;
+        delete item["characteristics"];
+        let tempCharValues = tempChars.map((char: any) => char.value);
+        // console.log(charValues);
+        // console.log(tempCharValues);
+        if (
+          JSON.parse(decodeURI(charValues)).every((value: string) =>
+            tempCharValues.includes(value)
+          )
+        ) {
+          return item;
+        }
+      } else {
         return item;
       }
-    } else {
-      return item;
-    }
-  });
-  filteredItems = Object.values(
-    filteredItems.reduce((a: any, b: any) => {
-      if (!a[b.name]) a[b.name] = b;
-      return a;
-    }, {})
-  );
+    })
+    .filter((elem: any) => elem != undefined);
+  // filteredItems = Object.values(
+  //   filteredItems.reduce((a: any, b: any) => {
+  //     if (!a[b.name]) a[b.name] = b;
+  //     return a;
+  //   }, {})
+  // );
   // console.log(filteredItems.length);
   const itemCharacteristics =
     await gigabyteService.getDistinctCharacteristicsForGivenGroupId(groupId);
