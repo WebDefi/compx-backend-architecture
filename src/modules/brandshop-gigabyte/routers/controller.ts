@@ -38,14 +38,18 @@ export const getItemsByGroup = async (
     return rep.status(400).send(itemsResponse);
   }
   let filteredItems = itemsResponse.rows.map((item: any) => {
-    let tempChars = item.characteristics;
-    delete item["characteristics"];
-    let tempCharValues = tempChars.map((char: any) => char.value);
-    if (
-      JSON.parse(decodeURI(charValues)).some((value: string) =>
-        tempCharValues.includes(value)
-      )
-    ) {
+    if (charValues != undefined) {
+      let tempChars = item.characteristics;
+      delete item["characteristics"];
+      let tempCharValues = tempChars.map((char: any) => char.value);
+      if (
+        JSON.parse(decodeURI(charValues)).some((value: string) =>
+          tempCharValues.includes(value)
+        )
+      ) {
+        return item;
+      }
+    } else {
       return item;
     }
   });
