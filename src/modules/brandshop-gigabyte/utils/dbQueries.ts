@@ -15,7 +15,7 @@ export const getAllItemsByGroupId = (
   charValues?: string
 ) => {
   return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (SELECT given_id from categories where group_id = ${groupId}))
-  select distinct category_id, name, description, url, images, price, detailedDescRU, detailedDescUA FROM items, item
+  select category_id, name, description, url, images, price, detailedDescRU, detailedDescUA, characteristics FROM items, item
   where item.id = items.id
   ${
     charValues != undefined

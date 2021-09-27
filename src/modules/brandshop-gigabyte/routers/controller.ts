@@ -37,6 +37,25 @@ export const getItemsByGroup = async (
   if (itemsResponse.error) {
     return rep.status(400).send(itemsResponse);
   }
+  let filteredItems = itemsResponse.rows.map((item: any) => {
+    let tempChars = item.characteristics;
+    delete item["characteristics"];
+    let tempCharValues = tempChars.map((char: any) => char.value);
+    if (
+      JSON.parse(decodeURI(charValues)).some((value: string) =>
+        tempCharValues.includes(value)
+      )
+    ) {
+      return item;
+    }
+  });
+  filteredItems = Object.values(
+    filteredItems.reduce((a: any, b: any) => {
+      if (!a[b.name]) a[b.name] = b;
+      return a;
+    }, {})
+  );
+  // console.log(filteredItems.length);
   const itemCharacteristics =
     await gigabyteService.getDistinctCharacteristicsForGivenGroupId(groupId);
   if (itemCharacteristics.error) {
@@ -66,7 +85,7 @@ export const getItemsByGroup = async (
   });
   const numberOfPages = Math.round(numberOfItems.rows[0].number_of_items / 20);
   const itemsResult = {
-    items: itemsResponse.rows,
+    items: filteredItems,
     characteristics: itemCharacteristics.rows[0]?.characteristics,
     bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
       groupBanner.rows[0].banner_image_url ?? ""
