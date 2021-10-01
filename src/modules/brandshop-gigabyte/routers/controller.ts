@@ -41,7 +41,7 @@ export const getItemsByGroup = async (
     .map((item: any) => {
       if (charValues != undefined) {
         let tempChars = item.characteristics;
-        delete item["characteristics"];
+        // delete item["characteristics"];
         let tempCharValues = tempChars.map((char: any) => char.value);
         // console.log(charValues);
         // console.log(tempCharValues);
