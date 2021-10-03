@@ -39,12 +39,12 @@ export const getItemsByGroup = async (
   }
   let filteredItems = itemsResponse.rows
     .map((item: any) => {
+      let tempOldPrice = item.price_old;
+      delete item["price_old"];
+      item.oldPrice = tempOldPrice;
       if (charValues != undefined) {
         let tempChars = item.characteristics;
-        // delete item["characteristics"];
         let tempCharValues = tempChars.map((char: any) => char.value);
-        // console.log(charValues);
-        // console.log(tempCharValues);
         if (
           JSON.parse(decodeURI(charValues)).every((value: string) =>
             tempCharValues.includes(value)
