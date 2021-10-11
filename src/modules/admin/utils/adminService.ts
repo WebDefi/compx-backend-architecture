@@ -30,40 +30,38 @@ class adminService implements IServiceInterface {
     const items = brandShopData.items
       .map((item: any) => {
         // console.log(item);
-        if (
-          (item.categoryId == "1165" ||
-            item.categoryId == "1166" ||
-            item.categoryId == "1170" ||
-            item.categoryId == "1172") &&
-          item.condition == "NEW"
-        ) {
-          if (typeof item.images.image == "string") {
-            item.images.image = [item.images.image];
-          }
-          item.characteristics = item.characteristics.charItem
-            ? item.characteristics.charItem.length
-              ? item.characteristics.charItem.map((char: any) => {
-                  delete char["$"]["type"];
-                  return char["$"];
-                })
-              : [item.characteristics.charItem["$"]]
-            : [];
-          item.characteristics = [
-            ...new Set(item.characteristics.map((char: any) => char.name)),
-          ].map((name: any) => {
-            let tempValues = item.characteristics.find(
-              (char: any) => char.name == name
-            );
-            // console.log(tempValues)
-            return {
-              name: name,
-              alias: tempValues.alias.replace("Видеокарты.", ""),
-              value: tempValues.value,
-            };
-          });
-          // console.log(item.characteristics);
-          return item;
+        // if (
+        //   (item.categoryId == "1354" ||
+        //     item.categoryId == "1354") &&
+        //   item.condition == "NEW"
+        // ) {
+        if (typeof item.images.image == "string") {
+          item.images.image = [item.images.image];
         }
+        item.characteristics = item.characteristics.charItem
+          ? item.characteristics.charItem.length
+            ? item.characteristics.charItem.map((char: any) => {
+                delete char["$"]["type"];
+                return char["$"];
+              })
+            : [item.characteristics.charItem["$"]]
+          : [];
+        item.characteristics = [
+          ...new Set(item.characteristics.map((char: any) => char.name)),
+        ].map((name: any) => {
+          let tempValues = item.characteristics.find(
+            (char: any) => char.name == name
+          );
+          // console.log(tempValues)
+          return {
+            name: name,
+            alias: tempValues.alias.replace("Видеокарты.", ""),
+            value: tempValues.value,
+          };
+        });
+        // console.log(item.characteristics);
+        return item;
+        // }
       })
       .filter((item: any) => item != undefined);
     // console.log(items.length)
@@ -92,17 +90,17 @@ class adminService implements IServiceInterface {
     const queryToInsertItems = insertIntoItems(
       queryInsertItems.substring(0, queryInsertItems.length - 2)
     );
-    // console.log(items);
+    console.log(items);
     // console.log("QUery to inset");
     // console.log(queryToInsertItems);
-    const insertItemsResult = await db.executeQueryForGivenDB(
-      queryToInsertItems,
-      compxDB.id,
-      values
-    );
-    if (insertItemsResult.error) {
-      return insertItemsResult;
-    }
+    // const insertItemsResult = await db.executeQueryForGivenDB(
+    //   queryToInsertItems,
+    //   compxDB.id,
+    //   values
+    // );
+    // if (insertItemsResult.error) {
+    //   return insertItemsResult;
+    // }
     return { result: "Data Inserted Successfully" };
   }
   updateRecord(...args: any): Promise<any> {

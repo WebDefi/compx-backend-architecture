@@ -12,16 +12,26 @@ export const getAllItemsByGroupId = (
   groupId: number,
   start?: number,
   end?: number,
+  sort_by?: string,
   charValues?: string
 ) => {
   return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (SELECT given_id from categories where group_id = ${groupId}))
-  select distinct on (items.id) category_id, name, description, url, images, price, price_old, detailedDescRU, detailedDescUA, characteristics FROM items, item
+  select distinct on (items.id, price) category_id, name, description, url, images, price, price_old, detailedDescRU, detailedDescUA, characteristics FROM items, item
   where item.id = items.id
   ${
     charValues != undefined
       ? `and item.chars ->> 'value' in (${charValues})`
       : ""
   }
+  ${
+    sort_by != undefined
+      ? sort_by == "price_up"
+        ? "order by price asc"
+        : sort_by == "price_down"
+        ? "order by price desc"
+        : ""
+      : ""
+  } 
     ${
       start != undefined
         ? `offset(${start}) 

@@ -32,6 +32,7 @@ class gigabyteService {
     groupId: number,
     start?: number,
     end?: number,
+    sort_by?: string,
     charValues?: Array<string>
   ) {
     let charValuesString = "";
@@ -49,6 +50,7 @@ class gigabyteService {
         groupId,
         start,
         end,
+        sort_by,
         charValues != undefined ? charValuesString : undefined
       ),
       compxDB.id

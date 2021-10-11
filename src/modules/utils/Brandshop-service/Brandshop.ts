@@ -31,6 +31,7 @@ class Brandshop {
     const parsedXml = await parseStringPromise(xmlData, {
       explicitArray: false,
     });
+    // console.log(parsedXml)
     let categories = this.filterObjectByProperties(
       parsedXml.price.categories.category,
       constructor.category

@@ -1,9 +1,4 @@
-import {
-  RequestBodyDefault,
-  RequestHeadersDefault,
-  RequestQuerystringDefault,
-  RequestGenericInterface as RGI,
-} from "fastify";
+import { RequestBodyDefault, RequestHeadersDefault } from "fastify";
 import { ReplyGenericInterface } from "fastify/types/reply";
 
 interface RequestGenericInterface {
@@ -12,6 +7,7 @@ interface RequestGenericInterface {
     start: number;
     end?: number;
     charValues?: Array<string>;
+    sort_by?: string;
   };
   Params: {
     groupId: number;

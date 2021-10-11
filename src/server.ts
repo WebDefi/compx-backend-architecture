@@ -10,7 +10,7 @@ const server = new Server(fastify({ logger: true, bodyLimit: 10485760 }));
 server.registerPlugin({ pluginInstance: cookie, options: { secret: "hehe" } });
 server.registerPlugin({ pluginInstance: cors, options: { origin: true } });
 server.registerRouter(gigabyte);
-// server.registerRouter(admin);
+server.registerRouter(admin);
 
 server.registerApi();
 

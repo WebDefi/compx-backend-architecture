@@ -32,6 +32,7 @@ export const getItemsByGroup = async (
     groupId,
     queryString?.start,
     queryString?.end,
+    queryString?.sort_by,
     charValues != undefined ? JSON.parse(decodeURI(charValues)) : undefined
   );
   if (itemsResponse.error) {
