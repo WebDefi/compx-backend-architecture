@@ -55,7 +55,12 @@ class adminService implements IServiceInterface {
           // console.log(tempValues)
           return {
             name: name,
-            alias: tempValues.alias.replace("Видеокарты.", ""),
+            alias: tempValues.alias
+              .replace(
+                /Видеокарты\.|Ноутбуки\.|Системы охлаждения\.|Материнские платы\.|SSD\.|Гарнитуры\.|Мыши\.|Монитор\.|Корпуса\.|Блоки питания\./,
+                ""
+              )
+              .trim(),
             value: tempValues.value,
           };
         });
@@ -93,14 +98,14 @@ class adminService implements IServiceInterface {
     console.log(items);
     // console.log("QUery to inset");
     // console.log(queryToInsertItems);
-    // const insertItemsResult = await db.executeQueryForGivenDB(
-    //   queryToInsertItems,
-    //   compxDB.id,
-    //   values
-    // );
-    // if (insertItemsResult.error) {
-    //   return insertItemsResult;
-    // }
+    const insertItemsResult = await db.executeQueryForGivenDB(
+      queryToInsertItems,
+      compxDB.id,
+      values
+    );
+    if (insertItemsResult.error) {
+      return insertItemsResult;
+    }
     return { result: "Data Inserted Successfully" };
   }
   updateRecord(...args: any): Promise<any> {

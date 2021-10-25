@@ -100,6 +100,7 @@ export const getItemsByGroup = async (
       groupBanner.rows[0].banner_image_url ?? ""
     }`,
     numberOfPages: numberOfPages == 0 ? 1 : numberOfPages,
+    numberOfItems: numberOfItems
   };
   return rep.status(200).send(itemsResult);
 };
