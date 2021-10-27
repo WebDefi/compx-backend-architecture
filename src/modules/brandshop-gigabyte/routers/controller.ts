@@ -142,7 +142,9 @@ export const getGalleryItemByGroup = async (
     );
     return item;
   });
-  return rep.status(200).send({ galleryItem: resultGallery[0] });
+  return rep
+    .status(200)
+    .send({ galleryItem: resultGallery.length < 1 ? null : resultGallery[0] });
 };
 
 export const getNews = async (req: FastifyRequest, rep: FastifyReply) => {
