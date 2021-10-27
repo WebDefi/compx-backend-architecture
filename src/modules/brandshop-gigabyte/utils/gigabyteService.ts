@@ -13,6 +13,7 @@ import {
   getBannerImageUrlByGroup,
   getCountOfItemsByGroupAndChars,
   getFpsItems,
+  getGalleryItemByGroup,
 } from "./dbQueries";
 
 class gigabyteService {
@@ -87,6 +88,12 @@ class gigabyteService {
   public async getAllActiveGalleryItems() {
     return await db.executeQueryForGivenDB(
       getAllActiveGalleryItems,
+      compxDB.id
+    );
+  }
+  public async getGalleryItemByGroup(groupId: number) {
+    return await db.executeQueryForGivenDB(
+      getGalleryItemByGroup(groupId),
       compxDB.id
     );
   }

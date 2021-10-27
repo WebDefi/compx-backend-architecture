@@ -8,6 +8,9 @@ export const getFpsItems = `select vg.name_ru, vg.name_uk,
 vg.picture_url, it.name, fps.attributes from video_game vg, items it, 
 fps_attributes fps where it.video_game_id = vg.id and it.fps_attributes_id = fps.id`;
 
+export const getGalleryItemByGroup = (groupId: number) =>
+  `SELECT * FROM gallery where active is true and group_id = ${groupId}`;
+
 export const getAllItemsByGroupId = (
   groupId: number,
   start?: number,

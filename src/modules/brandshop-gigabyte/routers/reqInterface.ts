@@ -1,4 +1,8 @@
-import { RequestBodyDefault, RequestHeadersDefault } from "fastify";
+import {
+  RequestBodyDefault,
+  RequestHeadersDefault,
+  RequestQuerystringDefault,
+} from "fastify";
 import { ReplyGenericInterface } from "fastify/types/reply";
 
 interface RequestGenericInterface {
@@ -15,6 +19,19 @@ interface RequestGenericInterface {
   Headers?: RequestHeadersDefault;
 }
 
+interface RequestGenericInterfaceGames {
+  Body?: RequestBodyDefault;
+  Querystring?: RequestQuerystringDefault;
+  Params: {
+    groupId: number;
+  };
+  Headers?: RequestHeadersDefault;
+}
+
 export interface RouteGenericInterfaceItemsByCategory
   extends RequestGenericInterface,
+    ReplyGenericInterface {}
+
+export interface RouteGenericInterfaceGamesByGroup
+  extends RequestGenericInterfaceGames,
     ReplyGenericInterface {}

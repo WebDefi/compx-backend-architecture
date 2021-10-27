@@ -23,6 +23,11 @@ export const routes: RouteOptions[] = [
   },
   {
     method: "GET",
+    url: "/gallery/:groupId",
+    handler: <RouteHandlerMethod>controller.getGalleryItemByGroup,
+  },
+  {
+    method: "GET",
     url: "/news",
     handler: <RouteHandlerMethod>controller.getNews,
   },
@@ -38,7 +43,7 @@ export const routes: RouteOptions[] = [
   },
   {
     method: "GET",
-    url: "/games",
-    handler: controller.getFpsGamesChars,
+    url: "/games/:groupId",
+    handler: <RouteHandlerMethod>controller.getFpsGamesChars,
   },
 ];
