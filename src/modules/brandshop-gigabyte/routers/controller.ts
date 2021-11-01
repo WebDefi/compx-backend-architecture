@@ -14,9 +14,11 @@ export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
     let tempImage = group.image_url;
     delete group["image_url"];
     delete group["banner_image_url"];
-    group["imageUrl"] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
-      tempImage ?? ""
-    }`;
+    group[
+      "imageUrl"
+    ] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${
+      group.id
+    }/${tempImage ?? ""}`;
     return group;
   });
   return rep.status(200).send({ groups: resultGroups });
