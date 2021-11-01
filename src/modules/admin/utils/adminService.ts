@@ -9,8 +9,11 @@ class adminService implements IServiceInterface {
   }): Promise<any> {
     let queryInsertCategories = "";
     const categories = brandShopData.categories;
-    Object.keys(categories).forEach((categoryId: string) => {
-      queryInsertCategories += `(${categoryId}, '${categories[categoryId]}'), `;
+    // Object.keys(categories).forEach((categoryId: string) => {
+    //   queryInsertCategories += `(${categoryId}, '${categories[categoryId]}'), `;
+    // });
+    categories.forEach((categoryObj: any) => {
+      queryInsertCategories += `(${categoryObj.id}, '${categoryObj.name}'), `;
     });
     const queryToInsertCategories = insertIntoCategories(
       queryInsertCategories.substring(0, queryInsertCategories.length - 2)
@@ -38,14 +41,14 @@ class adminService implements IServiceInterface {
         if (typeof item.images.image == "string") {
           item.images.image = [item.images.image];
         }
-        item.characteristics = item.characteristics.charItem
-          ? item.characteristics.charItem.length
-            ? item.characteristics.charItem.map((char: any) => {
-                delete char["$"]["type"];
-                return char["$"];
-              })
-            : [item.characteristics.charItem["$"]]
-          : [];
+        // item.characteristics = item.characteristics.charItem
+        //   ? item.characteristics.charItem.length
+        //     ? item.characteristics.charItem.map((char: any) => {
+        //         delete char["$"]["type"];
+        //         return char["$"];
+        //       })
+        //     : [item.characteristics.charItem["$"]]
+        //   : [];
         item.characteristics = [
           ...new Set(item.characteristics.map((char: any) => char.name)),
         ].map((name: any) => {
