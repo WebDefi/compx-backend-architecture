@@ -38,8 +38,11 @@ class adminService implements IServiceInterface {
         //     item.categoryId == "1354") &&
         //   item.condition == "NEW"
         // ) {
+        console.log(item.images);
         if (typeof item.images.image == "string") {
-          item.images.image = [item.images.image];
+          item.images = [item.images.image];
+        } else {
+          item.images = item.images.map((imageObj: any) => imageObj.image);
         }
         // item.characteristics = item.characteristics.charItem
         //   ? item.characteristics.charItem.length
@@ -86,7 +89,7 @@ class adminService implements IServiceInterface {
           item.name,
           item.description,
           item.url,
-          item.images.image,
+          item.images,
           item.priceRUAH,
           item.detailedDescriptionUA,
           item.detailedDescriptionRU,
@@ -98,7 +101,7 @@ class adminService implements IServiceInterface {
     const queryToInsertItems = insertIntoItems(
       queryInsertItems.substring(0, queryInsertItems.length - 2)
     );
-    console.log(items);
+    // console.log(items);
     // console.log("QUery to inset");
     // console.log(queryToInsertItems);
     const insertItemsResult = await db.executeQueryForGivenDB(
