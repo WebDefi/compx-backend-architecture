@@ -12,6 +12,11 @@ export const routes: RouteOptions[] = [
     handler: <RouteHandlerMethod>controller.getGroups,
   },
   {
+    method: "POST",
+    url: "/groups",
+    handler: <RouteHandlerMethod>controller.createGroup,
+  },
+  {
     method: "GET",
     url: "/items/:groupId",
     handler: <RouteHandlerMethod>controller.getItemsByGroup,
@@ -40,6 +45,11 @@ export const routes: RouteOptions[] = [
     method: "GET",
     url: "/slider",
     handler: <RouteHandlerMethod>controller.getSlider,
+  },
+  {
+    method: "POST",
+    url: "/slider",
+    handler: <RouteHandlerMethod>controller.createSlider,
   },
   {
     method: "GET",

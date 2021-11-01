@@ -1,4 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
+import { uploadFile } from "../../aws/fileUtils";
 import gigabyteService from "../utils/gigabyteService";
 import {
   RouteGenericInterfaceGamesByGroup,
@@ -14,14 +15,66 @@ export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
     let tempImage = group.image_url;
     delete group["image_url"];
     delete group["banner_image_url"];
-    group["imageUrl"] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
-      tempImage ?? ""
-    }`;
+    group[
+      "imageUrl"
+    ] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${
+      group.id
+    }/${tempImage ?? ""}`;
     return group;
   });
   return rep.status(200).send({ groups: resultGroups });
 };
+export const createGroup = async (req: any, rep: FastifyReply) => {
+  // console.log(req.body.Image[0].rawFile);
+  // console.log(req.body)
+  const fileData = req.body.imageUrl;
+  console.log(Buffer.from(fileData.src, "base64"));
+  const createGroupResponse = await gigabyteService.createGroup(
+    req.body.title,
+    req.body.text,
+    fileData.title
+  );
+  if (createGroupResponse.error) {
+    return rep.status(400).send(createGroupResponse);
+  }
+  uploadFile(
+    Buffer.from(fileData.src.split(",")[1], "base64"),
+    `groups/${createGroupResponse.rows[0].id}/${fileData.title}`
+  );
 
+  return rep.status(201).send(createGroupResponse.rows[0]);
+};
+
+export const createSlider = async (req: any, rep: FastifyReply) => {
+  // console.log(req.body.Image[0].rawFile);
+  console.log(req.body);
+  const fileDataDesc = req.body.imageUrlDesc;
+  const fileDataMob = req.body.imageUrlMob;
+  // console.log(Buffer.from(fileData.src, "base64"));
+  const createSliderResponse = await gigabyteService.createSliderElement(
+    req.body.title_high ?? undefined,
+    req.body.title_low ?? undefined,
+    req.body.button_text ?? undefined,
+    req.body.url_to ?? undefined,
+    req.body.active ?? undefined,
+    req.body.active_title ?? undefined,
+    req.body.active_button ?? undefined,
+    fileDataDesc ? fileDataDesc.title : undefined,
+    fileDataMob ? fileDataMob.title : undefined
+  );
+  if (createSliderResponse.error) {
+    return rep.status(400).send(createSliderResponse);
+  }
+  uploadFile(
+    Buffer.from(fileDataDesc.src.split(",")[1], "base64"),
+    `slider/${createSliderResponse.rows[0].id}/${fileDataDesc.title}`
+  );
+  uploadFile(
+    Buffer.from(fileDataMob.src.split(",")[1], "base64"),
+    `slider/${createSliderResponse.rows[0].id}/${fileDataMob.title}`
+  );
+  return rep.status(201).send(createSliderResponse.rows[0]);
+};
 export const getItemsByGroup = async (
   req: FastifyRequest<RouteGenericInterfaceItemsByCategory>,
   rep: FastifyReply
@@ -168,7 +221,12 @@ export const getSlider = async (req: FastifyRequest, rep: FastifyReply) => {
   if (sliderItems.error) {
     return rep.status(400).send(sliderItems);
   }
-  return rep.status(200).send({ slider: sliderItems.rows });
+  const resultSliderItems = sliderItems.rows.map((item: any) => {
+    item.image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/slider/${item.id}/${item.image}`;
+    item.image_mob = `https://compx-filestore.s3.eu-west-1.amazonaws.com/slider/${item.id}/${item.image_mob}`;
+    return item;
+  });
+  return rep.status(200).send({ slider: resultSliderItems });
 };
 
 export const getFpsGamesChars = async (

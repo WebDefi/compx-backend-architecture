@@ -15,6 +15,7 @@
   "author": "Kostiantyn Matvieienkov",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1018.0",
     "env-cmd": "^10.1.0",
     "fastify": "^3.19.0",
     "fastify-cookie": "^5.3.1",

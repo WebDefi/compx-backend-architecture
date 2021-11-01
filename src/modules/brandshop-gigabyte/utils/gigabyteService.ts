@@ -1,5 +1,6 @@
 import db from "../../../dataSource/db";
 import { compxDB } from "../../../dataSource/db/DBConfig";
+import { constructCreateQueryStringBasedOnParams } from "../../utils/crudUtils";
 import IServiceInterface from "../../utils/IServiceInterface";
 import {
   getAllCategoriesQuery,
@@ -22,6 +23,50 @@ class gigabyteService {
   }
   public async getAllGroups() {
     return await db.executeQueryForGivenDB(getAllGroupsQuery, compxDB.id);
+  }
+  public async createGroup(title: string, text?: string, image?: string) {
+    const objectToInsert: { [key: string]: any } = {
+      title: title,
+      image_url: image,
+      group_text: text,
+    };
+    const { queryString, valuesArray } =
+      constructCreateQueryStringBasedOnParams("groups", objectToInsert);
+    return await db.executeQueryForGivenDB(
+      queryString,
+      compxDB.id,
+      valuesArray
+    );
+  }
+  public async createSliderElement(
+    title_high?: string,
+    title_low?: string,
+    button_text?: string,
+    url_to?: string,
+    active: boolean = false,
+    active_title: boolean = false,
+    active_button: boolean = false,
+    image?: string,
+    image_mob?: string
+  ) {
+    const objectToInsert: { [key: string]: any } = {
+      title_high,
+      title_low,
+      button_text,
+      url_to,
+      active,
+      active_title,
+      active_button,
+      image,
+      image_mob,
+    };
+    const { queryString, valuesArray } =
+      constructCreateQueryStringBasedOnParams("slider", objectToInsert);
+    return await db.executeQueryForGivenDB(
+      queryString,
+      compxDB.id,
+      valuesArray
+    );
   }
   public async getBannerImageUrlByGroup(groupId: number) {
     return await db.executeQueryForGivenDB(
