@@ -11,6 +11,12 @@ fps_attributes fps where it.video_game_id = vg.id and it.fps_attributes_id = fps
 export const getGalleryItemByGroup = (groupId: number) =>
   `SELECT * FROM gallery where active is true and group_id = ${groupId}`;
 
+export const getUserByName = (username: string) =>
+  `SELECT * FROM users where username = '${username}'`;
+
+export const deleteFromTableRecord = (table: string, id: number) =>
+  `DELETE FROM ${table} WHERE id = ${id}`;
+
 export const getAllItemsByGroupId = (
   groupId: number,
   start?: number,
