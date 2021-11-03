@@ -22,7 +22,7 @@ export function constructCreateQueryStringBasedOnParams(
 }
 export function constructUpdateQueryStringBasedOnParams(
   tableName: string,
-  uuid: string,
+  id: number,
   columnObject: { [columnKey: string]: any }
 ): { queryString: string; valuesArray: any } {
   let columnValues: Array<any> = [];
@@ -40,7 +40,7 @@ export function constructUpdateQueryStringBasedOnParams(
     0,
     updateRecordQueryString.length - 2
   );
-  updateRecordQueryString += ` WHERE uuid = $${counter}`;
-  columnValues.push(uuid);
+  updateRecordQueryString += ` WHERE id = $${counter} returning *`;
+  columnValues.push(id);
   return { queryString: updateRecordQueryString, valuesArray: columnValues };
 }

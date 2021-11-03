@@ -1,6 +1,9 @@
 import db from "../../../dataSource/db";
 import { compxDB } from "../../../dataSource/db/DBConfig";
-import { constructCreateQueryStringBasedOnParams } from "../../utils/crudUtils";
+import {
+  constructCreateQueryStringBasedOnParams,
+  constructUpdateQueryStringBasedOnParams,
+} from "../../utils/crudUtils";
 import IServiceInterface from "../../utils/IServiceInterface";
 import {
   getAllCategoriesQuery,
@@ -15,6 +18,8 @@ import {
   getCountOfItemsByGroupAndChars,
   getFpsItems,
   getGalleryItemByGroup,
+  deleteFromTableRecord,
+  getUserByName,
 } from "./dbQueries";
 
 class gigabyteService {
@@ -32,6 +37,68 @@ class gigabyteService {
     };
     const { queryString, valuesArray } =
       constructCreateQueryStringBasedOnParams("groups", objectToInsert);
+    return await db.executeQueryForGivenDB(
+      queryString,
+      compxDB.id,
+      valuesArray
+    );
+  }
+  public async editGroup(
+    id: number,
+    title: string,
+    text?: string,
+    image?: string
+  ) {
+    const objectToInsert: { [key: string]: any } = {
+      title: title,
+      image_url: image,
+      group_text: text,
+    };
+    const { queryString, valuesArray } =
+      constructUpdateQueryStringBasedOnParams("groups", id, objectToInsert);
+    return await db.executeQueryForGivenDB(
+      queryString,
+      compxDB.id,
+      valuesArray
+    );
+  }
+  public async createNewsSales(
+    table: string,
+    title: string,
+    active: boolean,
+    url: string,
+    imageUrl: string
+  ) {
+    const objectToInsert: { [key: string]: any } = {
+      title: title,
+      image: imageUrl,
+      url: url,
+      active: active,
+    };
+    const { queryString, valuesArray } =
+      constructCreateQueryStringBasedOnParams(table, objectToInsert);
+    return await db.executeQueryForGivenDB(
+      queryString,
+      compxDB.id,
+      valuesArray
+    );
+  }
+  public async editNewsSales(
+    table: string,
+    id: number,
+    title: string,
+    active: boolean,
+    url: string,
+    imageUrl: string
+  ) {
+    const objectToInsert: { [key: string]: any } = {
+      title: title,
+      image: imageUrl,
+      url: url,
+      active: active,
+    };
+    const { queryString, valuesArray } =
+      constructUpdateQueryStringBasedOnParams(table, id, objectToInsert);
     return await db.executeQueryForGivenDB(
       queryString,
       compxDB.id,
@@ -62,6 +129,37 @@ class gigabyteService {
     };
     const { queryString, valuesArray } =
       constructCreateQueryStringBasedOnParams("slider", objectToInsert);
+    return await db.executeQueryForGivenDB(
+      queryString,
+      compxDB.id,
+      valuesArray
+    );
+  }
+  public async updatedSliderElement(
+    id: number,
+    title_high?: string,
+    title_low?: string,
+    button_text?: string,
+    url_to?: string,
+    active: boolean = false,
+    active_title: boolean = false,
+    active_button: boolean = false,
+    image?: string,
+    image_mob?: string
+  ) {
+    const objectToInsert: { [key: string]: any } = {
+      title_high,
+      title_low,
+      button_text,
+      url_to,
+      active,
+      active_title,
+      active_button,
+      image,
+      image_mob,
+    };
+    const { queryString, valuesArray } =
+      constructUpdateQueryStringBasedOnParams("slider", id, objectToInsert);
     return await db.executeQueryForGivenDB(
       queryString,
       compxDB.id,
@@ -141,6 +239,15 @@ class gigabyteService {
       getGalleryItemByGroup(groupId),
       compxDB.id
     );
+  }
+  public async deleteRecordById(table: string, id: number) {
+    return await db.executeQueryForGivenDB(
+      deleteFromTableRecord(table, id),
+      compxDB.id
+    );
+  }
+  public async getUserByName(username: string) {
+    return await db.executeQueryForGivenDB(getUserByName(username), compxDB.id);
   }
   public async getAllActiveNews() {
     return await db.executeQueryForGivenDB(getAllActiveNews, compxDB.id);

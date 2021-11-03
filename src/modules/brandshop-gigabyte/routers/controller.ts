@@ -1,10 +1,14 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { uploadFile } from "../../aws/fileUtils";
+import { deleteFile, uploadFile } from "../../aws/fileUtils";
 import gigabyteService from "../utils/gigabyteService";
 import {
   RouteGenericInterfaceGamesByGroup,
   RouteGenericInterfaceItemsByCategory,
 } from "./reqInterface";
+import { compare } from "bcrypt";
+import { sign } from "jsonwebtoken";
+import db from "../../../dataSource/db";
+import { compxDB } from "../../../dataSource/db/DBConfig";
 
 export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
   const groups = await gigabyteService.getAllGroups();
@@ -45,6 +49,205 @@ export const createGroup = async (req: any, rep: FastifyReply) => {
   return rep.status(201).send(createGroupResponse.rows[0]);
 };
 
+export const createNews = async (req: any, rep: FastifyReply) => {
+  // console.log(req.body.Image[0].rawFile);
+  // console.log(req.body)
+  const fileData = req.body.imageUrl;
+  // console.log(Buffer.from(fileData.src, "base64"));
+  const createNewsResponse = await gigabyteService.createNewsSales(
+    "news",
+    req.body.title,
+    req.body.active ?? false,
+    req.body.url ?? "",
+    fileData.title
+  );
+  if (createNewsResponse.error) {
+    return rep.status(400).send(createNewsResponse);
+  }
+  uploadFile(
+    Buffer.from(fileData.src.split(",")[1], "base64"),
+    `news/${createNewsResponse.rows[0].id}/${fileData.title}`
+  );
+  createNewsResponse.rows[0].image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/news/${createNewsResponse.rows[0].id}/${createNewsResponse.rows[0].image}`;
+  return rep.status(201).send(createNewsResponse.rows[0]);
+};
+
+export const createSales = async (req: any, rep: FastifyReply) => {
+  // console.log(req.body.Image[0].rawFile);
+  // console.log(req.body)
+  const fileData = req.body.imageUrl;
+  // console.log(Buffer.from(fileData.src, "base64"));
+  const createSalesResponse = await gigabyteService.createNewsSales(
+    "sale_promotion",
+    req.body.title,
+    req.body.active ?? false,
+    req.body.url ?? "",
+    fileData.title
+  );
+  if (createSalesResponse.error) {
+    return rep.status(400).send(createSalesResponse);
+  }
+  uploadFile(
+    Buffer.from(fileData.src.split(",")[1], "base64"),
+    `sales/${createSalesResponse.rows[0].id}/${fileData.title}`
+  );
+  createSalesResponse.rows[0].image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/sales/${createSalesResponse.rows[0].id}/${createSalesResponse.rows[0].image}`;
+  return rep.status(201).send(createSalesResponse.rows[0]);
+};
+
+export const editSales = async (req: any, rep: FastifyReply) => {
+  console.log(req.body);
+  const fileData = req.body.imageUrl;
+  const createSalesResponse = await gigabyteService.editNewsSales(
+    "sale_promotion",
+    req.params.id,
+    req.body.title,
+    req.body.active ?? false,
+    req.body.url ?? "",
+    fileData ? fileData.title : undefined
+  );
+  if (createSalesResponse.error) {
+    return rep.status(400).send(createSalesResponse);
+  }
+  if (fileData) {
+    deleteFile(`sales/${req.params.id}/${fileData.title}`);
+    uploadFile(
+      Buffer.from(fileData.src.split(",")[1], "base64"),
+      `sales/${createSalesResponse.rows[0].id}/${fileData.title}`
+    );
+  }
+  createSalesResponse.rows[0].image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/sales/${createSalesResponse.rows[0].id}/${createSalesResponse.rows[0].image}`;
+  return rep.status(201).send(createSalesResponse.rows[0]);
+};
+
+export const editGroup = async (req: any, rep: FastifyReply) => {
+  console.log(req.body);
+  const fileData = req.body.imageUrl;
+  const createSalesResponse = await gigabyteService.editGroup(
+    req.params.id,
+    req.body.title,
+    req.body.group_text ?? "",
+    fileData ? fileData.title : undefined
+  );
+  if (createSalesResponse.error) {
+    return rep.status(400).send(createSalesResponse);
+  }
+  if (fileData) {
+    deleteFile(`groups/${req.params.id}/${fileData.title}`);
+    uploadFile(
+      Buffer.from(fileData.src.split(",")[1], "base64"),
+      `groups/${createSalesResponse.rows[0].id}/${fileData.title}`
+    );
+  }
+  createSalesResponse.rows[0].image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${createSalesResponse.rows[0].id}/${createSalesResponse.rows[0].image_url}`;
+  return rep.status(201).send(createSalesResponse.rows[0]);
+};
+
+export const editNews = async (req: any, rep: FastifyReply) => {
+  console.log(req.body);
+  const fileData = req.body.imageUrl;
+  const createSalesResponse = await gigabyteService.editNewsSales(
+    "news",
+    req.params.id,
+    req.body.title,
+    req.body.active ?? false,
+    req.body.url ?? "",
+    fileData ? fileData.title : undefined
+  );
+  if (createSalesResponse.error) {
+    return rep.status(400).send(createSalesResponse);
+  }
+  if (fileData) {
+    deleteFile(`news/${req.params.id}/${fileData.title}`);
+    uploadFile(
+      Buffer.from(fileData.src.split(",")[1], "base64"),
+      `news/${createSalesResponse.rows[0].id}/${fileData.title}`
+    );
+  }
+  createSalesResponse.rows[0].image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/news/${createSalesResponse.rows[0].id}/${createSalesResponse.rows[0].image}`;
+  return rep.status(201).send(createSalesResponse.rows[0]);
+};
+
+export const getSaleById = async (req: any, rep: FastifyReply) => {
+  let getSaleByIdResult = (
+    await db.executeQueryForGivenDB(
+      `SELECT * FROM sale_promotion where id = ${req.params.id}`,
+      compxDB.id
+    )
+  ).rows[0];
+  getSaleByIdResult.image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/sales/${getSaleByIdResult.id}/${getSaleByIdResult.image}`;
+  return rep.status(201).send(getSaleByIdResult);
+};
+export const getGroupsById = async (req: any, rep: FastifyReply) => {
+  let getSaleByIdResult = (
+    await db.executeQueryForGivenDB(
+      `SELECT * FROM groups where id = ${req.params.id}`,
+      compxDB.id
+    )
+  ).rows[0];
+  getSaleByIdResult.image_url = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${getSaleByIdResult.id}/${getSaleByIdResult.image_url}`;
+  return rep.status(201).send(getSaleByIdResult);
+};
+export const getNewsById = async (req: any, rep: FastifyReply) => {
+  let getSaleByIdResult = (
+    await db.executeQueryForGivenDB(
+      `SELECT * FROM news where id = ${req.params.id}`,
+      compxDB.id
+    )
+  ).rows[0];
+  getSaleByIdResult.image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/news/${getSaleByIdResult.id}/${getSaleByIdResult.image}`;
+  return rep.status(201).send(getSaleByIdResult);
+};
+
+export const getSliderById = async (req: any, rep: FastifyReply) => {
+  let getSaleByIdResult = (
+    await db.executeQueryForGivenDB(
+      `SELECT * FROM slider where id = ${req.params.id}`,
+      compxDB.id
+    )
+  ).rows[0];
+  getSaleByIdResult.image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/slider/${getSaleByIdResult.id}/${getSaleByIdResult.image}`;
+  getSaleByIdResult.image_mob = `https://compx-filestore.s3.eu-west-1.amazonaws.com/slider/${getSaleByIdResult.id}/${getSaleByIdResult.image_mob}`;
+  return rep.status(201).send(getSaleByIdResult);
+};
+
+export const deleteNews = async (req: any, rep: FastifyReply) => {
+  const deleteNewsResponse = await gigabyteService.deleteRecordById(
+    "news", // add deletion of photo in storage
+    req.params.id
+  );
+  if (deleteNewsResponse.error) {
+    return rep.status(400).send(deleteNewsResponse);
+  }
+  return rep.status(200).send({});
+};
+export const deleteSales = async (req: any, rep: FastifyReply) => {
+  const deleteNewsResponse = await gigabyteService.deleteRecordById(
+    "sale_promotion", // add deletion of photo in storage
+    req.params.id
+  );
+  if (deleteNewsResponse.error) {
+    return rep.status(400).send(deleteNewsResponse);
+  }
+  return rep.status(200).send({});
+};
+
+export const loginUser = async (req: any, rep: FastifyReply) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const getUserRecord = await gigabyteService.getUserByName(username);
+  if (getUserRecord.error) {
+    return rep.status(400).send(getUserRecord);
+  }
+  if (compare(password, getUserRecord.rows[0].password)) {
+    return rep.status(200).send({
+      auth: sign({ username }, process.env.JWTSecret!, { expiresIn: "30d" }),
+    });
+  } else {
+    return rep.status(401).send({ error: "unauthorize" });
+  }
+};
+
 export const createSlider = async (req: any, rep: FastifyReply) => {
   // console.log(req.body.Image[0].rawFile);
   console.log(req.body);
@@ -75,6 +278,64 @@ export const createSlider = async (req: any, rep: FastifyReply) => {
   );
   return rep.status(201).send(createSliderResponse.rows[0]);
 };
+
+export const deleteSlider = async (req: any, rep: FastifyReply) => {
+  const deleteNewsResponse = await gigabyteService.deleteRecordById(
+    "slider", // add deletion of photo in storage
+    req.params.id
+  );
+  if (deleteNewsResponse.error) {
+    return rep.status(400).send(deleteNewsResponse);
+  }
+  return rep.status(200).send({});
+};
+
+export const editSlider = async (req: any, rep: FastifyReply) => {
+  // console.log(req.body.Image[0].rawFile);
+  console.log(req.body);
+  const fileDataDesc = req.body.imageUrlDesc;
+  const fileDataMob = req.body.imageUrlMob;
+  // console.log(Buffer.from(fileData.src, "base64"));
+  const createSliderResponse = await gigabyteService.updatedSliderElement(
+    req.params.id,
+    req.body.title_high ?? undefined,
+    req.body.title_low ?? undefined,
+    req.body.button_text ?? undefined,
+    req.body.url_to ?? undefined,
+    req.body.active ?? undefined,
+    req.body.active_title ?? undefined,
+    req.body.active_button ?? undefined,
+    fileDataDesc ? fileDataDesc.title : undefined,
+    fileDataMob ? fileDataMob.title : undefined
+  );
+  if (createSliderResponse.error) {
+    return rep.status(400).send(createSliderResponse);
+  }
+  if (fileDataDesc) {
+    let deleteSliderItem = req.body.image.split("/");
+    deleteFile(
+      `slider/${req.params.id}/${deleteSliderItem[deleteSliderItem.length - 1]}`
+    );
+    uploadFile(
+      Buffer.from(fileDataDesc.src.split(",")[1], "base64"),
+      `slider/${createSliderResponse.rows[0].id}/${fileDataDesc.title}`
+    );
+  }
+  if (fileDataMob) {
+    let deleteSliderItemMob = req.body.image_mob.split("/");
+    deleteFile(
+      `slider/${req.params.id}/${
+        deleteSliderItemMob[deleteSliderItemMob.length - 1]
+      }`
+    );
+    uploadFile(
+      Buffer.from(fileDataMob.src.split(",")[1], "base64"),
+      `slider/${createSliderResponse.rows[0].id}/${fileDataMob.title}`
+    );
+  }
+  return rep.status(201).send(createSliderResponse.rows[0]);
+};
+
 export const getItemsByGroup = async (
   req: FastifyRequest<RouteGenericInterfaceItemsByCategory>,
   rep: FastifyReply
@@ -205,7 +466,11 @@ export const getNews = async (req: FastifyRequest, rep: FastifyReply) => {
   if (newsItems.error) {
     return rep.status(400).send(newsItems);
   }
-  return rep.status(200).send({ news: newsItems.rows });
+  const resultNewsItems = newsItems.rows.map((item: any) => {
+    item.image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/news/${item.id}/${item.image}`;
+    return item;
+  });
+  return rep.status(200).send({ news: resultNewsItems });
 };
 
 export const getSales = async (req: FastifyRequest, rep: FastifyReply) => {
@@ -213,7 +478,11 @@ export const getSales = async (req: FastifyRequest, rep: FastifyReply) => {
   if (salesItems.error) {
     return rep.status(400).send(salesItems);
   }
-  return rep.status(200).send({ sales: salesItems.rows });
+  const resultSalesItems = salesItems.rows.map((item: any) => {
+    item.image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/sales/${item.id}/${item.image}`;
+    return item;
+  });
+  return rep.status(200).send({ sales: resultSalesItems });
 };
 
 export const getSlider = async (req: FastifyRequest, rep: FastifyReply) => {
