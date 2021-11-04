@@ -257,7 +257,7 @@ export const loginUser = async (req: any, rep: FastifyReply) => {
   }
   if (compare(password, getUserRecord.rows[0].password)) {
     return rep.status(200).send({
-      auth: sign({ username }, process.env.JWTSecret!, { expiresIn: "30d" }),
+      auth: sign({ username }, "clownDoesBeepBeep", { expiresIn: "30d" }),
     });
   } else {
     return rep.status(401).send({ error: "unauthorize" });

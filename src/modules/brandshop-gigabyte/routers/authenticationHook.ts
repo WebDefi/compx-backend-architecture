@@ -11,7 +11,7 @@ export const Authenticate = async (
   try {
     const payload: any = verify(
       tokenToVerify.split(" ")[1],
-      process.env.JWTSecret!
+      "clownDoesBeepBeep"
     );
     done();
     return;
