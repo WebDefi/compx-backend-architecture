@@ -47,12 +47,14 @@ class gigabyteService {
     id: number,
     title: string,
     text?: string,
-    image?: string
+    image?: string,
+    banner_image_url?: string
   ) {
     const objectToInsert: { [key: string]: any } = {
       title: title,
       image_url: image,
       group_text: text,
+      banner_image_url: banner_image_url,
     };
     const { queryString, valuesArray } =
       constructUpdateQueryStringBasedOnParams("groups", id, objectToInsert);

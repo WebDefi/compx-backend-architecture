@@ -17,6 +17,7 @@ export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
   }
   const resultGroups = groups.rows.map((group: any) => {
     let tempImage = group.image_url;
+    let tempImageGroup = group["banner_image_url"];
     delete group["image_url"];
     delete group["banner_image_url"];
     group[
@@ -24,6 +25,11 @@ export const getGroups = async (req: FastifyRequest, rep: FastifyReply) => {
     ] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${
       group.id
     }/${tempImage ?? ""}`;
+    group[
+      "banner_image_url"
+    ] = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${
+      group.id
+    }/${tempImageGroup ?? ""}`;
     return group;
   });
   return rep.status(200).send({ groups: resultGroups });
@@ -123,11 +129,13 @@ export const editSales = async (req: any, rep: FastifyReply) => {
 export const editGroup = async (req: any, rep: FastifyReply) => {
   console.log(req.body);
   const fileData = req.body.imageUrl;
+  const fileDataBanner = req.body.imageUrlBanner;
   const createSalesResponse = await gigabyteService.editGroup(
     req.params.id,
     req.body.title,
     req.body.group_text ?? "",
-    fileData ? fileData.title : undefined
+    fileData ? fileData.title : undefined,
+    fileDataBanner ? fileDataBanner.title : undefined
   );
   if (createSalesResponse.error) {
     return rep.status(400).send(createSalesResponse);
@@ -137,6 +145,13 @@ export const editGroup = async (req: any, rep: FastifyReply) => {
     uploadFile(
       Buffer.from(fileData.src.split(",")[1], "base64"),
       `groups/${createSalesResponse.rows[0].id}/${fileData.title}`
+    );
+  }
+  if (fileDataBanner) {
+    deleteFile(`groups/${req.params.id}/${fileDataBanner.title}`);
+    uploadFile(
+      Buffer.from(fileDataBanner.src.split(",")[1], "base64"),
+      `groups/${createSalesResponse.rows[0].id}/${fileDataBanner.title}`
     );
   }
   createSalesResponse.rows[0].image = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${createSalesResponse.rows[0].id}/${createSalesResponse.rows[0].image_url}`;
@@ -186,6 +201,7 @@ export const getGroupsById = async (req: any, rep: FastifyReply) => {
     )
   ).rows[0];
   getSaleByIdResult.image_url = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${getSaleByIdResult.id}/${getSaleByIdResult.image_url}`;
+  getSaleByIdResult.banner_image_url = `https://compx-filestore.s3.eu-west-1.amazonaws.com/groups/${getSaleByIdResult.id}/${getSaleByIdResult.banner_image_url}`;
   return rep.status(201).send(getSaleByIdResult);
 };
 export const getNewsById = async (req: any, rep: FastifyReply) => {
