@@ -41,12 +41,6 @@ class adminService {
             // brandShopData.items = [brandShopData.items[0]];
             const items = brandShopData.items
                 .map((item) => {
-                // console.log(item);
-                // if (
-                //   (item.categoryId == "1354" ||
-                //     item.categoryId == "1354") &&
-                //   item.condition == "NEW"
-                // ) {
                 console.log(item.images);
                 if (typeof item.images.image == "string") {
                     item.images = [item.images.image];
@@ -54,30 +48,21 @@ class adminService {
                 else {
                     item.images = item.images.map((imageObj) => imageObj.image);
                 }
-                // item.characteristics = item.characteristics.charItem
-                //   ? item.characteristics.charItem.length
-                //     ? item.characteristics.charItem.map((char: any) => {
-                //         delete char["$"]["type"];
-                //         return char["$"];
-                //       })
-                //     : [item.characteristics.charItem["$"]]
-                //   : [];
-                item.characteristics = [
-                    ...new Set(item.characteristics.map((char) => char.name)),
-                ].map((name) => {
-                    let tempValues = item.characteristics.find((char) => char.name == name);
-                    // console.log(tempValues)
-                    return {
-                        name: name,
-                        alias: tempValues.alias
-                            .replace(/Видеокарты\.|Ноутбуки\.|Системы охлаждения\.|Материнские платы\.|SSD\.|Гарнитуры\.|Мыши\.|Монитор\.|Корпуса\.|Блоки питания\./, "")
-                            .trim(),
-                        value: tempValues.value,
-                    };
-                });
-                // console.log(item.characteristics);
-                return item;
-                // }
+                if (item.condition == "NEW") {
+                    item.characteristics = [
+                        ...new Set(item.characteristics.map((char) => char.name)),
+                    ].map((name) => {
+                        let tempValues = item.characteristics.find((char) => char.name == name);
+                        return {
+                            name: name,
+                            alias: tempValues.alias
+                                .replace(/Видеокарты\.|Ноутбуки\.|Системы охлаждения\.|Материнские платы\.|SSD\.|Гарнитуры\.|Мыши\.|Монитор\.|Корпуса\.|Блоки питания\./, "")
+                                .trim(),
+                            value: tempValues.value,
+                        };
+                    });
+                    return item;
+                }
             })
                 .filter((item) => item != undefined);
             // console.log(items.length)
@@ -101,6 +86,10 @@ class adminService {
             // console.log(items);
             // console.log("QUery to inset");
             // console.log(queryToInsertItems);
+            const dropItems = yield db_1.default.executeQueryForGivenDB("DELETE FROM items", DBConfig_1.compxDB.id);
+            if (dropItems.error) {
+                return dropItems;
+            }
             const insertItemsResult = yield db_1.default.executeQueryForGivenDB(queryToInsertItems, DBConfig_1.compxDB.id, values);
             if (insertItemsResult.error) {
                 return insertItemsResult;
