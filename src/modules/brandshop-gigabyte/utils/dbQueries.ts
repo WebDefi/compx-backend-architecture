@@ -22,13 +22,18 @@ export const getAllItemsByGroupId = (
   start?: number,
   end?: number,
   sort_by?: string,
-  charValues?: string
+  charValues?: string,
+  categories?: Array<number>
 ) => {
-  return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (SELECT given_id from categories where group_id = ${groupId}))
+  return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (${
+    categories
+      ? `${categories[0]}`
+      : `SELECT given_id from categories where group_id = ${groupId}`
+  }))
   select distinct on (items.id, price) category_id, name, description, url, images, price, price_old, detailedDescRU, detailedDescUA, characteristics FROM items, item
   where item.id = items.id
   ${
-    charValues != undefined
+    charValues != undefined && !categories
       ? `and item.chars ->> 'value' in (${charValues})`
       : ""
   }

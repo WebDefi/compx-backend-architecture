@@ -134,6 +134,8 @@ export const editGroup = async (req: any, rep: FastifyReply) => {
     req.params.id,
     req.body.title,
     req.body.group_text ?? "",
+    req.body.banner_active_text ?? false,
+    req.body.banner_active_button ?? false,
     fileData ? fileData.title : undefined,
     fileDataBanner ? fileDataBanner.title : undefined
   );
@@ -368,6 +370,7 @@ export const getItemsByGroup = async (
     queryString?.sort_by,
     charValues != undefined ? JSON.parse(decodeURI(charValues)) : undefined
   );
+  console.log(itemsResponse.rows);
   if (itemsResponse.error) {
     return rep.status(400).send(itemsResponse);
   }
@@ -426,8 +429,15 @@ export const getItemsByGroup = async (
     }
   });
   const numberOfPages = Math.round(numberOfItems.rows[0].number_of_items / 20);
+  // console.log("clown", JSON.parse(decodeURI(charValues))[0]);
   const itemsResult = {
-    items: filteredItems,
+    items:
+      charValues != undefined &&
+      /Миші|Гарнітура|СВО|Системи охолдження процесору/.test(
+        JSON.parse(decodeURI(charValues))[0]
+      )
+        ? itemsResponse.rows
+        : filteredItems,
     characteristics: itemCharacteristics.rows[0]?.characteristics,
     bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${
       groupBanner.rows[0].banner_image_url ?? ""

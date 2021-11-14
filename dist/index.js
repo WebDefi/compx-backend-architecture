@@ -15,6 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const initDatabase_1 = require("./dataSource/db/initDatabase");
 const server_1 = __importDefault(require("./server"));
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    yield server_1.default.initServer("3000", "0.0.0.0");
+    yield server_1.default.initServer("3001", "0.0.0.0");
     yield initDatabase_1.initRemoteDatabase();
 }))();

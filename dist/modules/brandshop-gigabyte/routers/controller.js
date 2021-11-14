@@ -96,11 +96,11 @@ const editSales = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.editSales = editSales;
 const editGroup = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
-    var _g;
+    var _g, _h, _j;
     console.log(req.body);
     const fileData = req.body.imageUrl;
     const fileDataBanner = req.body.imageUrlBanner;
-    const createSalesResponse = yield gigabyteService_1.default.editGroup(req.params.id, req.body.title, (_g = req.body.group_text) !== null && _g !== void 0 ? _g : "", fileData ? fileData.title : undefined, fileDataBanner ? fileDataBanner.title : undefined);
+    const createSalesResponse = yield gigabyteService_1.default.editGroup(req.params.id, req.body.title, (_g = req.body.group_text) !== null && _g !== void 0 ? _g : "", (_h = req.body.banner_active_text) !== null && _h !== void 0 ? _h : false, (_j = req.body.banner_active_button) !== null && _j !== void 0 ? _j : false, fileData ? fileData.title : undefined, fileDataBanner ? fileDataBanner.title : undefined);
     if (createSalesResponse.error) {
         return rep.status(400).send(createSalesResponse);
     }
@@ -117,10 +117,10 @@ const editGroup = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.editGroup = editGroup;
 const editNews = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
-    var _h, _j;
+    var _k, _l;
     console.log(req.body);
     const fileData = req.body.imageUrl;
-    const createSalesResponse = yield gigabyteService_1.default.editNewsSales("news", req.params.id, req.body.title, (_h = req.body.active) !== null && _h !== void 0 ? _h : false, (_j = req.body.url) !== null && _j !== void 0 ? _j : "", fileData ? fileData.title : undefined);
+    const createSalesResponse = yield gigabyteService_1.default.editNewsSales("news", req.params.id, req.body.title, (_k = req.body.active) !== null && _k !== void 0 ? _k : false, (_l = req.body.url) !== null && _l !== void 0 ? _l : "", fileData ? fileData.title : undefined);
     if (createSalesResponse.error) {
         return rep.status(400).send(createSalesResponse);
     }
@@ -194,13 +194,13 @@ const loginUser = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.loginUser = loginUser;
 const createSlider = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
-    var _k, _l, _m, _o, _p, _q, _r;
+    var _m, _o, _p, _q, _r, _s, _t;
     // console.log(req.body.Image[0].rawFile);
     console.log(req.body);
     const fileDataDesc = req.body.imageUrlDesc;
     const fileDataMob = req.body.imageUrlMob;
     // console.log(Buffer.from(fileData.src, "base64"));
-    const createSliderResponse = yield gigabyteService_1.default.createSliderElement((_k = req.body.title_high) !== null && _k !== void 0 ? _k : undefined, (_l = req.body.title_low) !== null && _l !== void 0 ? _l : undefined, (_m = req.body.button_text) !== null && _m !== void 0 ? _m : undefined, (_o = req.body.url_to) !== null && _o !== void 0 ? _o : undefined, (_p = req.body.active) !== null && _p !== void 0 ? _p : undefined, (_q = req.body.active_title) !== null && _q !== void 0 ? _q : undefined, (_r = req.body.active_button) !== null && _r !== void 0 ? _r : undefined, fileDataDesc ? fileDataDesc.title : undefined, fileDataMob ? fileDataMob.title : undefined);
+    const createSliderResponse = yield gigabyteService_1.default.createSliderElement((_m = req.body.title_high) !== null && _m !== void 0 ? _m : undefined, (_o = req.body.title_low) !== null && _o !== void 0 ? _o : undefined, (_p = req.body.button_text) !== null && _p !== void 0 ? _p : undefined, (_q = req.body.url_to) !== null && _q !== void 0 ? _q : undefined, (_r = req.body.active) !== null && _r !== void 0 ? _r : undefined, (_s = req.body.active_title) !== null && _s !== void 0 ? _s : undefined, (_t = req.body.active_button) !== null && _t !== void 0 ? _t : undefined, fileDataDesc ? fileDataDesc.title : undefined, fileDataMob ? fileDataMob.title : undefined);
     if (createSliderResponse.error) {
         return rep.status(400).send(createSliderResponse);
     }
@@ -219,13 +219,13 @@ const deleteSlider = (req, rep) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.deleteSlider = deleteSlider;
 const editSlider = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
-    var _s, _t, _u, _v, _w, _x, _y;
+    var _u, _v, _w, _x, _y, _z, _0;
     // console.log(req.body.Image[0].rawFile);
     console.log(req.body);
     const fileDataDesc = req.body.imageUrlDesc;
     const fileDataMob = req.body.imageUrlMob;
     // console.log(Buffer.from(fileData.src, "base64"));
-    const createSliderResponse = yield gigabyteService_1.default.updatedSliderElement(req.params.id, (_s = req.body.title_high) !== null && _s !== void 0 ? _s : undefined, (_t = req.body.title_low) !== null && _t !== void 0 ? _t : undefined, (_u = req.body.button_text) !== null && _u !== void 0 ? _u : undefined, (_v = req.body.url_to) !== null && _v !== void 0 ? _v : undefined, (_w = req.body.active) !== null && _w !== void 0 ? _w : undefined, (_x = req.body.active_title) !== null && _x !== void 0 ? _x : undefined, (_y = req.body.active_button) !== null && _y !== void 0 ? _y : undefined, fileDataDesc ? fileDataDesc.title : undefined, fileDataMob ? fileDataMob.title : undefined);
+    const createSliderResponse = yield gigabyteService_1.default.updatedSliderElement(req.params.id, (_u = req.body.title_high) !== null && _u !== void 0 ? _u : undefined, (_v = req.body.title_low) !== null && _v !== void 0 ? _v : undefined, (_w = req.body.button_text) !== null && _w !== void 0 ? _w : undefined, (_x = req.body.url_to) !== null && _x !== void 0 ? _x : undefined, (_y = req.body.active) !== null && _y !== void 0 ? _y : undefined, (_z = req.body.active_title) !== null && _z !== void 0 ? _z : undefined, (_0 = req.body.active_button) !== null && _0 !== void 0 ? _0 : undefined, fileDataDesc ? fileDataDesc.title : undefined, fileDataMob ? fileDataMob.title : undefined);
     if (createSliderResponse.error) {
         return rep.status(400).send(createSliderResponse);
     }
@@ -243,13 +243,14 @@ const editSlider = (req, rep) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.editSlider = editSlider;
 const getItemsByGroup = (req, rep) => __awaiter(void 0, void 0, void 0, function* () {
-    var _z, _0;
+    var _1, _2;
     const queryString = req.query;
     const charValues = queryString === null || queryString === void 0 ? void 0 : queryString.charValues;
     const groupId = req.params.groupId;
     if (!groupId)
         return rep.status(400).send({ error: "Group id wasn't presented" });
     const itemsResponse = yield gigabyteService_1.default.getAllItemsGroupId(groupId, queryString === null || queryString === void 0 ? void 0 : queryString.start, queryString === null || queryString === void 0 ? void 0 : queryString.end, queryString === null || queryString === void 0 ? void 0 : queryString.sort_by, charValues != undefined ? JSON.parse(decodeURI(charValues)) : undefined);
+    console.log(itemsResponse.rows);
     if (itemsResponse.error) {
         return rep.status(400).send(itemsResponse);
     }
@@ -302,10 +303,14 @@ const getItemsByGroup = (req, rep) => __awaiter(void 0, void 0, void 0, function
         }
     });
     const numberOfPages = Math.round(numberOfItems.rows[0].number_of_items / 20);
+    // console.log("clown", JSON.parse(decodeURI(charValues))[0]);
     const itemsResult = {
-        items: filteredItems,
-        characteristics: (_z = itemCharacteristics.rows[0]) === null || _z === void 0 ? void 0 : _z.characteristics,
-        bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${(_0 = groupBanner.rows[0].banner_image_url) !== null && _0 !== void 0 ? _0 : ""}`,
+        items: charValues != undefined &&
+            /Миші|Гарнітура|СВО|Системи охолдження процесору/.test(JSON.parse(decodeURI(charValues))[0])
+            ? itemsResponse.rows
+            : filteredItems,
+        characteristics: (_1 = itemCharacteristics.rows[0]) === null || _1 === void 0 ? void 0 : _1.characteristics,
+        bannerImageUrl: `https://compx-filestore.s3.eu-west-1.amazonaws.com/${(_2 = groupBanner.rows[0].banner_image_url) !== null && _2 !== void 0 ? _2 : ""}`,
         numberOfPages: numberOfPages == 0 ? 1 : numberOfPages,
         numberOfItems: numberOfItems.rows[0].number_of_items,
     };

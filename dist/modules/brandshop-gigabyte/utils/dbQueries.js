@@ -16,11 +16,13 @@ const getUserByName = (username) => `SELECT * FROM users where username = '${use
 exports.getUserByName = getUserByName;
 const deleteFromTableRecord = (table, id) => `DELETE FROM ${table} WHERE id = ${id}`;
 exports.deleteFromTableRecord = deleteFromTableRecord;
-const getAllItemsByGroupId = (groupId, start, end, sort_by, charValues) => {
-    return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (SELECT given_id from categories where group_id = ${groupId}))
+const getAllItemsByGroupId = (groupId, start, end, sort_by, charValues, categories) => {
+    return `with item as (SELECT unnest(characteristics) chars, id FROM items where category_id in (${categories
+        ? `${categories[0]}`
+        : `SELECT given_id from categories where group_id = ${groupId}`}))
   select distinct on (items.id, price) category_id, name, description, url, images, price, price_old, detailedDescRU, detailedDescUA, characteristics FROM items, item
   where item.id = items.id
-  ${charValues != undefined
+  ${charValues != undefined && !categories
         ? `and item.chars ->> 'value' in (${charValues})`
         : ""}
   ${sort_by != undefined

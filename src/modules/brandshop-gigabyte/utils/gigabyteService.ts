@@ -47,6 +47,8 @@ class gigabyteService {
     id: number,
     title: string,
     text?: string,
+    active_text?: boolean,
+    active_button?: boolean,
     image?: string,
     banner_image_url?: string
   ) {
@@ -54,6 +56,8 @@ class gigabyteService {
       title: title,
       image_url: image,
       group_text: text,
+      banner_active_text: active_text,
+      banner_active_button: active_button,
       banner_image_url: banner_image_url,
     };
     const { queryString, valuesArray } =
@@ -182,7 +186,8 @@ class gigabyteService {
     charValues?: Array<string>
   ) {
     let charValuesString = "";
-    if (charValues) {
+    let categories = [];
+    if (charValues && groupId != 8) {
       charValues.forEach((value: string) => {
         charValuesString += `'${value}', `;
       });
@@ -191,13 +196,43 @@ class gigabyteService {
         charValuesString.length - 2
       );
     }
+    if (groupId == 8) {
+      if (charValues) {
+        let categoriesNames: any = {
+          Миші: 1165,
+          Гарнітура: 1170,
+          СВО: 1154,
+          "Системи охолдження процесору": 1151,
+        };
+        for (let category in categoriesNames) {
+          if (charValues[0] == category) {
+            categories.push(categoriesNames[category]);
+          }
+        }
+      }
+    }
+    console.log(
+      getAllItemsByGroupId(
+        groupId,
+        start,
+        end,
+        sort_by,
+        charValues && (groupId != 8) != undefined
+          ? charValuesString
+          : undefined,
+        categories.length > 0 ? categories : undefined
+      )
+    );
     return await db.executeQueryForGivenDB(
       getAllItemsByGroupId(
         groupId,
         start,
         end,
         sort_by,
-        charValues != undefined ? charValuesString : undefined
+        charValues && (groupId != 8) != undefined
+          ? charValuesString
+          : undefined,
+        categories.length > 0 ? categories : undefined
       ),
       compxDB.id
     );

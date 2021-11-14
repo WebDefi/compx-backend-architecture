@@ -38,12 +38,14 @@ class gigabyteService {
             return yield db_1.default.executeQueryForGivenDB(queryString, DBConfig_1.compxDB.id, valuesArray);
         });
     }
-    editGroup(id, title, text, image, banner_image_url) {
+    editGroup(id, title, text, active_text, active_button, image, banner_image_url) {
         return __awaiter(this, void 0, void 0, function* () {
             const objectToInsert = {
                 title: title,
                 image_url: image,
                 group_text: text,
+                banner_active_text: active_text,
+                banner_active_button: active_button,
                 banner_image_url: banner_image_url,
             };
             const { queryString, valuesArray } = crudUtils_1.constructUpdateQueryStringBasedOnParams("groups", id, objectToInsert);
@@ -116,13 +118,34 @@ class gigabyteService {
     getAllItemsGroupId(groupId, start, end, sort_by, charValues) {
         return __awaiter(this, void 0, void 0, function* () {
             let charValuesString = "";
-            if (charValues) {
+            let categories = [];
+            if (charValues && groupId != 8) {
                 charValues.forEach((value) => {
                     charValuesString += `'${value}', `;
                 });
                 charValuesString = charValuesString.substring(0, charValuesString.length - 2);
             }
-            return yield db_1.default.executeQueryForGivenDB(dbQueries_1.getAllItemsByGroupId(groupId, start, end, sort_by, charValues != undefined ? charValuesString : undefined), DBConfig_1.compxDB.id);
+            if (groupId == 8) {
+                if (charValues) {
+                    let categoriesNames = {
+                        Миші: 1165,
+                        Гарнітура: 1170,
+                        СВО: 1154,
+                        "Системи охолдження процесору": 1151,
+                    };
+                    for (let category in categoriesNames) {
+                        if (charValues[0] == category) {
+                            categories.push(categoriesNames[category]);
+                        }
+                    }
+                }
+            }
+            console.log(dbQueries_1.getAllItemsByGroupId(groupId, start, end, sort_by, charValues && (groupId != 8) != undefined
+                ? charValuesString
+                : undefined, categories.length > 0 ? categories : undefined));
+            return yield db_1.default.executeQueryForGivenDB(dbQueries_1.getAllItemsByGroupId(groupId, start, end, sort_by, charValues && (groupId != 8) != undefined
+                ? charValuesString
+                : undefined, categories.length > 0 ? categories : undefined), DBConfig_1.compxDB.id);
         });
     }
     getNumberOfItemsByGroup(groupId, charValues) {
